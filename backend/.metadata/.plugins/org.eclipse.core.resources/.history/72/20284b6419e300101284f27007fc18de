@@ -1,0 +1,9 @@
+spring.application.name=youtube
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/springdb_main
+spring.datasource.username=postgres
+spring.datasource.password=gatitas2
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
