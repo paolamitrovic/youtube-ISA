@@ -1,0 +1,18 @@
+# Backend (Spring Boot / Maven)
+backend/target/
+backend/.idea/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/.settings/
+backend/*.iml
+
+# Node / Frontend (Angular)
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.vscode/
+frontend/package-lock.json
+
+# OS files
+*.DS_Store
+*.log
+*.bak
