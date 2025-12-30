@@ -81,4 +81,8 @@ public class Video {
 
     public List<VideoTag> getVideoTags() { return videoTags; }
     public void setVideoTags(List<VideoTag> videoTags) { this.videoTags = videoTags; }
+
+    public List<Tag> getTags() {
+    	return this.videoTags.stream().map(VideoTag::getTag).toList();
+    }
 }
