@@ -1,0 +1,74 @@
+.header {
+  display: flex;               /* aktivira horizontalni layout */
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  align-items: center;
+}
+
+.menu {
+    margin: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.menu a {
+  font-family: 'Poppins', sans-serif;  /* lep i moderan font */
+  font-weight: 500;                     /* srednja debljina */
+  font-size: 1.1rem;                    /* veća slova */
+  color: #333333;                       /* tamno siva boja */
+  text-decoration: none;                 /* uklanja podvlačenje */
+  transition: color 0.3s, transform 0.2s; /* glatki efekti pri hoveru */
+}
+
+/* Hover efekat */
+.menu a:hover {
+  color: #C62828;       /* promena boje pri hoveru */
+  transform: translateY(-2px);  /* lagano "podizanje" linka */
+}
+
+/* Grid za video kartice – 4 po redu */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+}
+
+/* Jedna kartica */
+.video-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Slika */
+.video-card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 200px;
+}
+
+/* Sadržaj kartice */
+.video-card .video-info {
+  padding: 5px 20px 15px 20px; /* gore 5px, dole 15px */
+  font-family: 'Nunito', sans-serif;
+}
+
+.video-card .video-info h3 {
+  font-size: 1.5rem;
+  color: #222;
+}
+
+.video-card .video-info p {
+  font-size: 0.9rem;
+  color: #555;
+}

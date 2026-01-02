@@ -1,0 +1,24 @@
+<div class="header">
+    <img src="assets/logo.png" alt="Logo">
+
+    <div class="menu">
+        <a href="#">Početna</a>
+        <a href="#">Registracija</a>
+        <a href="#">Kreiranje Objave</a>
+        <a href="#">Watch Party</a>
+        <a href="#">Odjava</a>
+    </div>
+</div>
+
+<div class="video-grid">
+  @for (video of videos; track video.id) {
+    <div class="video-card">
+      <img [src]="video.thumbnailPath" alt="thumbnail">
+      <div class="video-info">
+        <h3>{{ video.title }}</h3>
+        <p>{{ video.description }}</p>
+        <p>Pregledi: {{ video.views }}</p>
+      </div>
+    </div>
+  }
+</div>
