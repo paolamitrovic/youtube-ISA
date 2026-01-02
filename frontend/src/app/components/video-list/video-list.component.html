@@ -16,8 +16,24 @@
       <img [src]="video.thumbnailPath" alt="thumbnail">
       <div class="video-info">
         <h3>{{ video.title }}</h3>
-        <p>{{ video.description }}</p>
-        <p>Pregledi: {{ video.views }}</p>
+        <p>
+          <span
+            class="username"
+            (mouseenter)="showUser(video.user)"
+            (mouseleave)="hideUser()">
+            {{ video.user.username }}
+          </span>
+
+          @if (hoverUser === video.user) {
+            <div class="user-popover">
+              <p>Ime i prezime: {{ video.user.firstName }} {{ video.user.lastName }}</p>
+              <p>E-mail: {{ video.user.email }}</p>
+              <p>Adresa: {{ video.user.address }}</p>
+            </div>
+          }
+        </p>
+
+        <p class="views">{{ video.views }} pregleda</p>
       </div>
     </div>
   }

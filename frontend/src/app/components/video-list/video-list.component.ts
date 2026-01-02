@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class VideoListComponent implements OnInit {
 
   videos: Video[] = [];
+  hoverUser: any = null;
 
   constructor(private videoService: VideoService) {}
 
@@ -31,4 +32,13 @@ export class VideoListComponent implements OnInit {
       }
     });
   }
+
+  showUser(user: any) {
+    this.hoverUser = user;
+  }
+
+  hideUser() {
+    this.hoverUser = null;
+  }
+
 }

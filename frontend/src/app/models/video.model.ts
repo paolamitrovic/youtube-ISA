@@ -1,3 +1,5 @@
+import { User } from "./user.model";
+
 export interface Video {
   id: number;
   title: string;
@@ -6,7 +8,7 @@ export interface Video {
   videoPath: string;
   createdAt: string; // LocalDateTime dolazi kao string
   views: number;
-  user: any;         // kasnije ćemo tipizirati
+  user: User;         // kasnije ćemo tipizirati
   comments: any[];
   likes: any[];
   tags: any[];
