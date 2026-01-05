@@ -70,12 +70,17 @@ public class WebSecurityConfig {
             .requestMatchers("/h2-console/**").permitAll()  // H2 console (if used)
             .requestMatchers("/api/foo").permitAll()        // Example public endpoint
             .requestMatchers(
-                "/favicon.ico",
-                "/webjars/**",
-                "/css/**",
-                "/js/**",
-                "/images/**",
-                "/static/**"
+            		"/signup",
+                    "/activate",
+                    "/auth/**",
+                    "/h2-console/**",
+                    "/api/foo",
+                    "/favicon.ico",
+                    "/webjars/**",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**",
+                    "/static/**"
             ).permitAll()                                    // Static resources
             .anyRequest().authenticated()                    // All other requests require auth
         );

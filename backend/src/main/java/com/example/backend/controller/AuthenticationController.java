@@ -9,16 +9,20 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.dto.JwtAuthenticationRequest;
+import com.example.backend.dto.UserDto;
 import com.example.backend.dto.UserRequest;
 import com.example.backend.dto.UserTokenState;
 import com.example.backend.exception.ResourceConflictException;
 import com.example.backend.model.User;
+import com.example.backend.service.EmailService;
 import com.example.backend.service.UserService;
 import com.example.backend.util.TokenUtils;
 
@@ -34,6 +38,9 @@ public class AuthenticationController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private EmailService emailService;
     
     @PostMapping("/login")
     public ResponseEntity<UserTokenState> createAuthenticationToken(
@@ -53,6 +60,13 @@ public class AuthenticationController {
 
         // Generate JWT token
         User user = (User) authentication.getPrincipal();
+        
+        // Check if account is active
+        if (!user.isActive()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new UserTokenState(null, 0));
+        }
+        
         String jwt = tokenUtils.generateToken(user.getEmail());
         int expiresIn = tokenUtils.getExpiredIn();
 
@@ -61,7 +75,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> addUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserDto> addUser(@RequestBody UserRequest userRequest) {
         User existUser = this.userService.findByEmail(userRequest.getEmail());
 
         if (existUser != null) {
@@ -69,6 +83,26 @@ public class AuthenticationController {
         }
 
         User user = this.userService.save(userRequest);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        
+        // Send activation email asynchronously
+        try {
+            emailService.sendActivationEmail(user.getEmail(), user.getActivationToken().getToken());
+        } catch (Exception e) {
+            // Log error but don't fail signup
+            System.err.println("Failed to send activation email: " + e.getMessage());
+        }
+        
+        return new ResponseEntity<>(new UserDto(user), HttpStatus.CREATED);
+    }
+    
+    @GetMapping("/activate")
+    public ResponseEntity<?> activateAccount(@RequestParam String token) {
+        try {
+        	userService.activateAccount(token);
+            return ResponseEntity.ok("Account activated successfully! You can now log in.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("Activation failed: " + e.getMessage());
+        }
     }
 }

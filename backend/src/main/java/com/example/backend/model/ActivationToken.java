@@ -3,6 +3,8 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "activation_tokens")
 public class ActivationToken {

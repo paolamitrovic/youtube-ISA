@@ -23,7 +23,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/{username}")
 	public UserDto findByUsername(@PathVariable String username) {
 		try {
