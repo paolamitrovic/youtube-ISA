@@ -15,7 +15,8 @@ export class VideoListComponent implements OnInit {
   videos: Video[] = [];
 
   constructor(
-    private videoService: VideoService,
+    private videoService: VideoService
+
   ) {}
 
   ngOnInit(): void {
@@ -37,5 +38,10 @@ export class VideoListComponent implements OnInit {
   goToUser(username: string) {
     window.location.href = `/user/${username}`;
   }
+
+  goToVideo(id: number) {
+    window.location.href = `/video/${id}`;
+  }
+
 
 }

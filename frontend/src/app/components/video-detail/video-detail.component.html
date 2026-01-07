@@ -1,0 +1,20 @@
+@if (loading) {
+  <div>Učitava se...</div>
+}
+
+@if (!loading && video) {
+  <div class="video-container">
+    <video [src]="video.videoPath" controls autoplay></video>
+  </div>
+
+  <div class="video-info">
+    <h2>{{ video.title }}</h2>
+    <p>
+      <span class="username" (click)="goToUser(video.user.username)">
+        @{{ video.user.username }}
+      </span>
+    </p>
+    <p>{{ video.views }} pregleda | {{ video.createdAt | date:'d MMM y' }}</p>
+    <p>{{ video.description }}</p>
+  </div>
+}

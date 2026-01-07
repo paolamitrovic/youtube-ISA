@@ -1,19 +1,22 @@
 <div class="video-grid">
   @for (video of videos; track video.id) {
-    <div class="video-card">
+    <div 
+      class="video-card"
+      title="Pogledaj video" 
+      (click)="goToVideo(video.id)">
       <img [src]="video.thumbnailPath" alt="thumbnail">
       <div class="video-info">
         <h3>{{ video.title }}</h3>
         <p>
           <span
             class="username"
-            title="Pogledaj profil ovog korisnika" 
-            (click)="goToUser(video.user.username)">
+            title="Pogledaj profil" 
+            (click)="goToUser(video.user.username); $event.stopPropagation()">
             @{{ video.user.username }}
           </span>
         </p>
 
-        <p class="views">{{ video.views }} pregleda</p>
+        <p class="views">{{ video.views }} pregleda | {{ video.createdAt | date:'d MMM y' }}</p>
       </div>
     </div>
   }
