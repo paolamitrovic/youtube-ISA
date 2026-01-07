@@ -49,59 +49,13 @@
 }
 
 .username {
-  position: relative; /* referenca za hover karticu */
-  display: inline-block;
   font-family: 'Nunito', sans-serif;
   font-weight: 600;
   color: #333;
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .username:hover {
   color: #C62828; /* ista crvena kao meni */
-}
-
-.user-hover-card {
-  position: absolute;
-  top: 120%;        /* ispod username-a */
-  left: 0;          /* poravnata sa username-om */
-
-  background-color: #fff;
-  padding: 12px 16px;
-  border-radius: 10px;
-  min-width: 200px;
-
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  z-index: 1000;
-
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.85rem;
-  color: #333;
-
-  animation: fadeIn 0.2s ease-in-out;
-}
-
-.user-hover-card::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: 16px;
-
-  width: 12px;
-  height: 12px;
-  background: white;
-  transform: rotate(45deg);
-
-  box-shadow: -3px -3px 6px rgba(0,0,0,0.05);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }

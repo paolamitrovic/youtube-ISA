@@ -7,18 +7,10 @@
         <p>
           <span
             class="username"
-            (mouseenter)="showUser(video.user)"
-            (mouseleave)="hideUser()">
+            title="Pogledaj profil ovog korisnika" 
+            (click)="goToUser(video.user.username)">
             {{ video.user.username }}
           </span>
-
-          @if (hoverUser === video.user) {
-            <div class="user-popover">
-              <p>Ime i prezime: {{ video.user.firstName }} {{ video.user.lastName }}</p>
-              <p>E-mail: {{ video.user.email }}</p>
-              <p>Adresa: {{ video.user.address }}</p>
-            </div>
-          }
         </p>
 
         <p class="views">{{ video.views }} pregleda</p>

@@ -84,6 +84,7 @@ public class WebSecurityConfig {
                     "/static/**"
             ).permitAll()                                    // Static resources
             .requestMatchers(HttpMethod.GET, "/videos/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
             .anyRequest().authenticated()                    // All other requests require auth
         );
 

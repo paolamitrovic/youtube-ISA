@@ -6,9 +6,9 @@ export interface Video {
   description: string;
   thumbnailPath: string;
   videoPath: string;
-  createdAt: string; // LocalDateTime dolazi kao string
+  createdAt: string;
   views: number;
-  user: User;         // kasnije ćemo tipizirati
+  user: User;
   comments: any[];
   likes: any[];
   tags: any[];
