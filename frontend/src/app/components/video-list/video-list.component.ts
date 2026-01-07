@@ -16,7 +16,6 @@ export class VideoListComponent implements OnInit {
 
   constructor(
     private videoService: VideoService
-
   ) {}
 
   ngOnInit(): void {
