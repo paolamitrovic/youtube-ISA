@@ -1,37 +1,25 @@
-<!-- <div class="video-grid">
-  @for (video of videos; track video.id) {
-    <div 
-      class="video-card"
-      title="Pogledaj video" 
-      (click)="goToVideo(video.id)">
-      <img [src]="video.thumbnailPath" alt="thumbnail">
-      <div class="video-info">
-        <h3>{{ video.title }}</h3>
-        <p>
-          <span
-            class="username"
-            title="Pogledaj profil" 
-            (click)="goToUser(video.user.username); $event.stopPropagation()">
-            @{{ video.user.username }}
-          </span>
-        </p>
-
-        <p class="views">{{ video.views }} pregleda | {{ video.createdAt | date:'d MMM y' }}</p>
-      </div>
-    </div>
-  }
-</div> -->
-
-<!-- PRIVREMENO - za proveru -->
-<p>Number of videos: {{ videos.length }}</p>
-
-@if (videos.length > 0) {
-  @for (video of videos; track video.id) {
-    <div>
+<div *ngIf="videos && videos.length > 0" class="video-grid">
+  <div 
+    *ngFor="let video of videos; trackBy: trackByVideoId"
+    class="video-card"
+    title="Pogledaj video" 
+    (click)="goToVideo(video.id)">
+    <img [src]="video.thumbnailPath" [alt]="video.title + ' thumbnail'">
+    <div class="video-info">
       <h3>{{ video.title }}</h3>
-      <p>{{ video.description }}</p>
+      <p>
+        <span
+          class="username"
+          title="Pogledaj profil" 
+          (click)="goToUser(video.user.username); $event.stopPropagation()">
+          @{{ video.user.username }}
+        </span>
+      </p>
+      <p class="views">{{ video.views }} pregleda | {{ video.createdAt | date:'d MMM y' }}</p>
     </div>
-  }
-} @else {
+  </div>
+</div>
+
+<div *ngIf="!videos || videos.length === 0" class="no-videos">
   <p>No videos loaded</p>
-}
+</div>

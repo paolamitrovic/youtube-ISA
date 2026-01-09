@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Video } from '../models/video.model';
 
 @Injectable({
@@ -13,10 +14,23 @@ export class VideoService {
   constructor(private http: HttpClient) {}
 
   getAllVideos(): Observable<Video[]> {
-    return this.http.get<Video[]>(this.apiUrl);
+    console.log('🔍 VideoService: Making request to', this.apiUrl);
+    return this.http.get<Video[]>(this.apiUrl).pipe(
+      tap({
+        next: (videos) => console.log('✅ VideoService: Videos loaded:', videos?.length || 0, videos),
+        error: (err) => console.error('❌ VideoService: Error loading videos', err)
+      })
+    );
   }
 
   getVideoById(id: number): Observable<Video> {
-    return this.http.get<Video>(`${this.apiUrl}/${id}`);
+    const url = `${this.apiUrl}/${id}`;
+    console.log('🔍 VideoService: Making request to', url);
+    return this.http.get<Video>(url).pipe(
+      tap({
+        next: (video) => console.log('✅ VideoService: Video loaded:', video),
+        error: (err) => console.error('❌ VideoService: Error loading video', err)
+      })
+    );
   }
 }

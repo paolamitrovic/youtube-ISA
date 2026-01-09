@@ -1,8 +1,8 @@
-@if (loading) {
+<div *ngIf="loading">
   <div>Učitava se...</div>
-}
+</div>
 
-@if (!loading && video) {
+<div *ngIf="!loading && video">
   <div class="video-container">
     <video [src]="video.videoPath" controls autoplay></video>
   </div>
@@ -22,24 +22,24 @@
     <p>{{ video.description }}</p>
   </div>
 
-  @if (!commentsLoading && comments.length > 0) {
-    <div class="comments-section">
-        @for (comment of comments; track comment.createdAt) {
-        <div class="comment-box">
-            <div class="comment-header">
-            <span class="comment-username" (click)="goToUser(comment.user.username)">
-                @{{ comment.user.username }}
-            </span>
-            <span class="comment-date">{{ comment.createdAt | date:'d MMM y' }}</span>
-            </div>
-            <p class="comment-text">{{ comment.text }}</p>
-        </div>
-        }
+  <div *ngIf="!commentsLoading && comments.length > 0" class="comments-section">
+    <div *ngFor="let comment of comments; trackBy: trackByCommentDate" class="comment-box">
+      <div class="comment-header">
+        <span class="comment-username" (click)="goToUser(comment.user.username)">
+          @{{ comment.user.username }}
+        </span>
+        <span class="comment-date">{{ comment.createdAt | date:'d MMM y' }}</span>
+      </div>
+      <p class="comment-text">{{ comment.text }}</p>
     </div>
-  }
+  </div>
 
   <div class="add-comment-box">
     <textarea placeholder="Dodaj komentar..." rows="2"></textarea>
     <button>Postavi</button>
   </div>
-}
+</div>
+
+<div *ngIf="!loading && !video">
+  <p>Video nije pronađen</p>
+</div>

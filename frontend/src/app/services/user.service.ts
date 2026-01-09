@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -13,6 +14,13 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUserByUsername(username: string): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/${username}`);
+    const url = `${this.baseUrl}/${username}`;
+    console.log('🔍 UserService: Making request to', url);
+    return this.http.get<User>(url).pipe(
+      tap({
+        next: (user) => console.log('✅ UserService: User loaded:', user),
+        error: (err) => console.error('❌ UserService: Error loading user', err)
+      })
+    );
   }
 }
