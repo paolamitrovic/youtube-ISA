@@ -1,11 +1,12 @@
 <div class="header">
-    <img src="assets/logo.png" alt="Logo">
+    <img src="assets/logo.png" alt="Logo" (click)="router.navigate(['/'])" style="cursor: pointer;">
 
     <div class="menu">
-        <a href="#">Početna</a>
-        <a href="#">Registracija</a>
-        <a href="#">Kreiranje objave</a>
-        <a href="#">Watch party</a>
-        <a href="#">Odjava</a>
+        <a (click)="router.navigate(['/'])" style="cursor: pointer;">Početna</a>
+        <a *ngIf="!isLoggedIn()" (click)="router.navigate(['/login'])" style="cursor: pointer;">Login</a>
+        <a *ngIf="!isLoggedIn()" href="#">Registracija</a>
+        <a *ngIf="isLoggedIn()" href="#">Kreiranje objave</a>
+        <a *ngIf="isLoggedIn()" href="#">Watch party</a>
+        <a *ngIf="isLoggedIn()" (click)="logout()" style="cursor: pointer;">Odjava</a>
     </div>
 </div>

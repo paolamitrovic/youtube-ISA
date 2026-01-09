@@ -14,8 +14,8 @@
         @{{ video.user.username }}
         </span>
 
-        <span class="likes">
-            <img src="assets/like.png" alt="like">
+        <span class="likes" (click)="onLikeClick()" title="Like video">
+            <img src="assets/like.png" alt="like" style="cursor: pointer;">
         </span>
     </div>
     <p>{{ video.views }} pregleda | {{ video.createdAt | date:'d MMM y' }}</p>
@@ -35,8 +35,12 @@
   </div>
 
   <div class="add-comment-box">
-    <textarea placeholder="Dodaj komentar..." rows="2"></textarea>
-    <button>Postavi</button>
+    <textarea 
+      [(ngModel)]="commentTextValue"
+      placeholder="Dodaj komentar..." 
+      rows="2">
+    </textarea>
+    <button (click)="onSubmitComment()" type="button">Postavi</button>
   </div>
 </div>
 

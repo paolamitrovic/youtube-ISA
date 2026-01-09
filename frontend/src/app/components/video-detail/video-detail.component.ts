@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VideoService } from '../../services/video.service';
 import { Comment } from '../../models/comment.model';
 import { CommentService } from '../../services/comment.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -18,12 +19,14 @@ export class VideoDetailComponent implements OnInit {
   loading: boolean = true;
   comments: Comment[] = [];
   commentsLoading: boolean = true;
+  commentTextValue: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private videoService: VideoService,
     private commentService: CommentService,
+    private authService: AuthService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -92,5 +95,45 @@ export class VideoDetailComponent implements OnInit {
 
   trackByCommentDate(index: number, comment: Comment): any {
     return comment.createdAt;
+  }
+
+  onLikeClick() {
+    console.log('🔍 VideoDetailComponent: Like clicked');
+    
+    if (!this.authService.tokenIsPresent()) {
+      console.log('❌ User not logged in, redirecting to login');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // TODO: Implementiraj like funkcionalnost kada budeš spremna
+    console.log('✅ User is logged in, like functionality will be implemented');
+    // this.videoService.likeVideo(this.video!.id).subscribe(...)
+  }
+
+  onSubmitComment() {
+    console.log('🔍 VideoDetailComponent: Submit comment clicked - START');
+    console.log('🔍 commentTextValue:', this.commentTextValue);
+    
+    if (!this.authService.tokenIsPresent()) {
+      console.log('❌ User not logged in, redirecting to login');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    if (!this.commentTextValue || !this.commentTextValue.trim()) {
+      console.log('❌ Comment text is empty');
+      alert('Molimo unesite tekst komentara');
+      return;
+    }
+
+    // TODO: Implementiraj postavljanje komentara kada budeš spremna
+    console.log('✅ User is logged in, submitting comment:', this.commentTextValue);
+    // this.commentService.postComment(this.video!.id, this.commentTextValue.trim()).subscribe({
+    //   next: () => {
+    //     this.commentTextValue = '';
+    //     this.loadComments(this.video!.id);
+    //   }
+    // });
   }
 }
