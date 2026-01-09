@@ -1,0 +1,77 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login</h2>
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email"
+          class="form-control"
+          [class.is-invalid]="submitted && email?.invalid"
+        />
+        @if (submitted && email?.invalid) {
+          <div class="error-message">
+            @if (email?.errors?.['required']) {
+              <div>Email is required</div>
+            }
+            @if (email?.errors?.['email']) {
+              <div>Please enter a valid email</div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password"
+          class="form-control"
+          [class.is-invalid]="submitted && password?.invalid"
+        />
+        @if (submitted && password?.invalid) {
+          <div class="error-message">
+            @if (password?.errors?.['required']) {
+              <div>Password is required</div>
+            }
+            @if (password?.errors?.['minlength']) {
+              <div>Password must be at least 3 characters</div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Error Message -->
+      @if (errorMessage) {
+        <div class="alert alert-error">
+          {{ errorMessage }}
+        </div>
+      }
+
+      <!-- Submit Button -->
+      <button 
+        type="submit" 
+        class="btn btn-primary"
+        [disabled]="submitted && form.invalid"
+      >
+        @if (!submitted) {
+          <span>Login</span>
+        }
+        @if (submitted) {
+          <span>Logging in...</span>
+        }
+      </button>
+    </form>
+
+    <!-- Link to Signup -->
+    <div class="signup-link">
+      <p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
+    </div>
+  </div>
+</div>
