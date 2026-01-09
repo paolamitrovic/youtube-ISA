@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Video } from '../../models/video.model';
 import { ActivatedRoute } from '@angular/router';
@@ -9,10 +8,8 @@ import { CommentService } from '../../services/comment.service';
 
 @Component({
   selector: 'app-video-detail',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './video-detail.component.html',
-  styleUrl: './video-detail.component.css',
+  styleUrl: './video-detail.component.css'
 })
 export class VideoDetailComponent implements OnInit {
 

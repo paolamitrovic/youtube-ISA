@@ -1,4 +1,4 @@
-<div class="video-grid">
+<!-- <div class="video-grid">
   @for (video of videos; track video.id) {
     <div 
       class="video-card"
@@ -20,4 +20,18 @@
       </div>
     </div>
   }
-</div>
+</div> -->
+
+<!-- PRIVREMENO - za proveru -->
+<p>Number of videos: {{ videos.length }}</p>
+
+@if (videos.length > 0) {
+  @for (video of videos; track video.id) {
+    <div>
+      <h3>{{ video.title }}</h3>
+      <p>{{ video.description }}</p>
+    </div>
+  }
+} @else {
+  <p>No videos loaded</p>
+}

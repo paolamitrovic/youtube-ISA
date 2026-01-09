@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Video } from '../../models/video.model';
 import { VideoService } from '../../services/video.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-video-list',
   templateUrl: './video-list.component.html',
-  styleUrls: ['./video-list.component.css'],
-  standalone: true,
-  imports: [CommonModule]
+  styleUrls: ['./video-list.component.css']
 })
 export class VideoListComponent implements OnInit {
 
@@ -26,7 +23,6 @@ export class VideoListComponent implements OnInit {
     this.videoService.getAllVideos().subscribe({
       next: (data) => {
         this.videos = data;
-        console.log(this.videos); // 🔍 OBAVEZNO za proveru
       },
       error: (err) => {
         console.error('Error in loading videos', err);
@@ -41,6 +37,4 @@ export class VideoListComponent implements OnInit {
   goToVideo(id: number) {
     window.location.href = `/video/${id}`;
   }
-
-
 }
