@@ -3,10 +3,10 @@
 
     <div class="menu">
         <a (click)="router.navigate(['/'])" style="cursor: pointer;">Početna</a>
-        <a *ngIf="!isLoggedIn()" (click)="router.navigate(['/login'])" style="cursor: pointer;">Login</a>
-        <a *ngIf="!isLoggedIn()" href="#">Registracija</a>
-        <a *ngIf="isLoggedIn()" href="#">Kreiranje objave</a>
-        <a *ngIf="isLoggedIn()" href="#">Watch party</a>
+        <a *ngIf="!isLoggedIn()" (click)="router.navigate(['/login'])" style="cursor: pointer;">Prijava</a>
+        <a *ngIf="!isLoggedIn()" (click)="router.navigate(['/signup'])" style="cursor: pointer;">Registracija</a>
+        <a *ngIf="isLoggedIn()" href="#">Postavite video</a>
+        <a *ngIf="isLoggedIn()" href="#">Zajedničko gledanje videa</a>
         <a *ngIf="isLoggedIn()" (click)="logout()" style="cursor: pointer;">Odjava</a>
     </div>
 </div>
