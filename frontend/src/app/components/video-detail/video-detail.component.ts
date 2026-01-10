@@ -91,9 +91,10 @@ export class VideoDetailComponent implements OnInit {
 
   onLikeClick() {
     if (!this.authService.tokenIsPresent()) {
+      alert('Morate biti prijavljeni da biste lajkovali video.');
       this.router.navigate(['/login']);
       return;
-    }
+  }
 
     // TODO: Implementiraj like funkcionalnost
     console.log('✅ User is logged in, like functionality will be implemented');
@@ -102,6 +103,7 @@ export class VideoDetailComponent implements OnInit {
 
   onSubmitComment() {
     if (!this.authService.tokenIsPresent()) {
+      alert('Morate biti prijavljeni da biste postavili komentar.');
       this.router.navigate(['/login']);
       return;
     }
