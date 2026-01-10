@@ -1,77 +1,56 @@
 <div class="login-container">
   <div class="login-card">
     <h2>Prijava</h2>
-    
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-error text-center">
+      {{ errorMessage }}
+    </div>
+
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
       <!-- Email -->
       <div class="form-group">
         <label for="email">E-mail adresa</label>
-        <input 
-          type="email" 
-          id="email" 
+        <input
+          type="email"
+          id="email"
           formControlName="email"
           class="form-control"
-          [class.is-invalid]="submitted && email?.invalid"
+          [class.is-invalid]="isFieldInvalid('email')"
+          placeholder="Unesite e-mail adresu"
         />
-        @if (submitted && email?.invalid) {
-          <div class="error-message">
-            @if (email?.errors?.['required']) {
-              <div>E-mail adresa je obavezna</div>
-            }
-            @if (email?.errors?.['email']) {
-              <div>Molim Vas unesite validnu e-mail adresu</div>
-            }
-          </div>
-        }
+        <div *ngIf="isFieldInvalid('email')" class="error-message">
+          {{ getErrorMessage('email') }}
+        </div>
       </div>
 
       <!-- Password -->
       <div class="form-group">
         <label for="password">Lozinka</label>
-        <input 
-          type="password" 
-          id="password" 
+        <input
+          type="password"
+          id="password"
           formControlName="password"
           class="form-control"
-          [class.is-invalid]="submitted && password?.invalid"
+          [class.is-invalid]="isFieldInvalid('password')"
+          placeholder="Unesite lozinku"
         />
-        @if (submitted && password?.invalid) {
-          <div class="error-message">
-            @if (password?.errors?.['required']) {
-              <div>Lozinka je obavezna</div>
-            }
-            @if (password?.errors?.['minlength']) {
-              <div>Lozinka mora imati minimum 3 karaktera</div>
-            }
-          </div>
-        }
+        <div *ngIf="isFieldInvalid('password')" class="error-message">
+          {{ getErrorMessage('password') }}
+        </div>
       </div>
 
-      <!-- Error Message -->
-      @if (errorMessage) {
-        <div class="alert alert-error">
-          {{ errorMessage }}
-        </div>
-      }
-
       <!-- Submit Button -->
-      <button 
-        type="submit" 
-        class="btn btn-primary"
-        [disabled]="submitted && form.invalid"
-      >
-        @if (!submitted) {
-          <span>Prijavite se</span>
-        }
-        @if (submitted) {
-          <span>Prijavljivanje...</span>
-        }
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        <span *ngIf="!loading">Prijavite se</span>
+        <span *ngIf="loading">Prijavljivanje...</span>
       </button>
-    </form>
 
-    <!-- Link to Signup -->
-    <div class="signup-link">
-      <p>Nemate nalog? <a routerLink="/signup">Registrujte se</a></p>
-    </div>
+      <!-- Signup Link -->
+      <div class="signup-link">
+        Nemate nalog? <a routerLink="/signup">Registrujte se</a>
+      </div>
+    </form>
   </div>
 </div>

@@ -1,0 +1,141 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Registracija</h2>
+
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="alert alert-success text-center">
+      {{ successMessage }}
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-error text-center">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">Korisničko ime</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('username')"
+          placeholder="Unesite korisničko ime"
+        />
+        <div *ngIf="isFieldInvalid('username')" class="error-message">
+          {{ getErrorMessage('username') }}
+        </div>
+      </div>
+
+      <!-- First Name -->
+      <div class="form-group">
+        <label for="firstName">Ime</label>
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('firstName')"
+          placeholder="Unesite ime"
+        />
+        <div *ngIf="isFieldInvalid('firstName')" class="error-message">
+          {{ getErrorMessage('firstName') }}
+        </div>
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group">
+        <label for="lastName">Prezime</label>
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('lastName')"
+          placeholder="Unesite prezime"
+        />
+        <div *ngIf="isFieldInvalid('lastName')" class="error-message">
+          {{ getErrorMessage('lastName') }}
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('email')"
+          placeholder="primer@email.com"
+        />
+        <div *ngIf="isFieldInvalid('email')" class="error-message">
+          {{ getErrorMessage('email') }}
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="form-group">
+        <label for="address">Adresa</label>
+        <input
+          type="text"
+          id="address"
+          formControlName="address"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('address')"
+          placeholder="Unesite adresu"
+        />
+        <div *ngIf="isFieldInvalid('address')" class="error-message">
+          {{ getErrorMessage('address') }}
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Lozinka</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('password')"
+          placeholder="Minimalno 6 karaktera"
+        />
+        <div *ngIf="isFieldInvalid('password')" class="error-message">
+          {{ getErrorMessage('password') }}
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="confirmPassword">Potvrda lozinke</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('confirmPassword')"
+          placeholder="Ponovite lozinku"
+        />
+        <div *ngIf="isFieldInvalid('confirmPassword')" class="error-message">
+          {{ getErrorMessage('confirmPassword') }}
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        <span *ngIf="!loading">Registruj se</span>
+        <span *ngIf="loading">Registracija u toku...</span>
+      </button>
+
+      <!-- Login Link -->
+      <div class="signup-link">
+        Već imate nalog? <a routerLink="/login">Prijavite se</a>
+      </div>
+    </form>
+  </div>
+</div>

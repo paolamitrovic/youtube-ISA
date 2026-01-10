@@ -1,6 +1,10 @@
 package com.example.backend.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -75,7 +79,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> addUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<Map<String, String>> addUser(@RequestBody UserRequest userRequest) {
         User existUser = this.userService.findByEmail(userRequest.getEmail());
 
         if (existUser != null) {
@@ -92,7 +96,10 @@ public class AuthenticationController {
             System.err.println("Failed to send activation email: " + e.getMessage());
         }
         
-        return new ResponseEntity<>(new UserDto(user), HttpStatus.CREATED);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Registration successful! Please check your email to activate your account.");
+        
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
     
     @GetMapping("/activate")

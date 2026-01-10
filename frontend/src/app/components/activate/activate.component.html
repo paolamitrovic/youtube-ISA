@@ -1,0 +1,22 @@
+<div class="login-container">
+  <div class="login-card">
+    <!-- Loading -->
+    <div *ngIf="loading" class="text-center">
+      <p>Aktiviranje naloga...</p>
+    </div>
+
+    <!-- Success -->
+    <div *ngIf="success" class="text-center">
+      <h2>Aktiviran nalog!</h2>
+      <p>Sad možete da se prijavite.</p>
+      <button class="btn btn-primary" (click)="goToLogin()">Idite na prijavu</button>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="text-center">
+      <h2>Aktivacija neuspešna</h2>
+      <p>{{ error }}</p>
+      <button class="btn btn-primary" (click)="goToSignup()">Idite na registraciju</button>
+    </div>
+  </div>
+</div>

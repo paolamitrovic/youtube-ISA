@@ -24,6 +24,8 @@ import { ConfigService } from './services/config.service';
 
 // Importuj interceptor
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { SignupComponent } from './components/signup/signup.component';
+import { ActivateComponent } from './components/activate/activate.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
     UserProfileComponent,
     LoginComponent,
     NavbarComponent,
+    SignupComponent,
+    ActivateComponent
   ],
   imports: [
     BrowserModule,

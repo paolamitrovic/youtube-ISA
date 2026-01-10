@@ -82,7 +82,6 @@ export class VideoDetailComponent implements OnInit {
   }
 
   goToUser(username: string) {
-    console.log('🔍 VideoDetailComponent: Navigating to user:', username);
     this.router.navigate(['/user', username]);
   }
 

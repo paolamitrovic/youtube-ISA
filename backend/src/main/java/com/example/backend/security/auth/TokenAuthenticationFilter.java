@@ -1,6 +1,9 @@
 package com.example.backend.security.auth;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +27,15 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private UserDetailsService userDetailsService;
     
     protected final Log LOGGER = LogFactory.getLog(getClass());
-
+ 
+    // Lista javnih endpointa koji ne trebaju token validaciju
+    private static final List<String> PUBLIC_ENDPOINTS = Arrays.asList(
+            "/auth/login",
+            "/auth/signup",
+            "/auth/activate",
+            "/h2-console"
+        );
+    
     public TokenAuthenticationFilter(TokenUtils tokenHelper, UserDetailsService userDetailsService) {
         this.tokenUtils = tokenHelper;
         this.userDetailsService = userDetailsService;
@@ -33,7 +44,15 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-
+    	
+    	String requestPath = request.getRequestURI();  // DODAJ OVU LINIJU
+        
+        // Preskoči token validaciju za javne endpointe
+        if (isPublicEndpoint(requestPath)) {
+            chain.doFilter(request, response);
+            return;
+        }
+        
         String email;
         
         // 1. Extract JWT token from request
@@ -67,5 +86,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         
         // Continue filter chain
         chain.doFilter(request, response);
+    }
+    
+    private boolean isPublicEndpoint(String requestPath) {
+        return PUBLIC_ENDPOINTS.stream()
+                .anyMatch(endpoint -> requestPath.startsWith(endpoint));
     }
 }

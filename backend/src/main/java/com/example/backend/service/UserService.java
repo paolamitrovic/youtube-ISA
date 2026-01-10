@@ -50,8 +50,8 @@ public class UserService {
         // Hash password before saving
         u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         
-        u.setFirstName(userRequest.getFirstname());
-        u.setLastName(userRequest.getLastname());
+        u.setFirstName(userRequest.getFirstName());
+        u.setLastName(userRequest.getLastName());
         u.setEmail(userRequest.getEmail());
         u.setAddress(userRequest.getAddress());
         

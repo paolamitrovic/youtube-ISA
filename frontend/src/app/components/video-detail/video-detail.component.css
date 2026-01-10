@@ -21,7 +21,7 @@
   padding: 1rem;
   font-family: 'Nunito', sans-serif;
   text-align: left;
-  background-color: #f5f5f5; /* svetla pozadina */
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
@@ -29,7 +29,7 @@
 /* Naslov videa */
 .video-info h2 {
   font-size: 2rem;
-  color: #555;
+  color: #333;
 }
 
 .video-meta {
