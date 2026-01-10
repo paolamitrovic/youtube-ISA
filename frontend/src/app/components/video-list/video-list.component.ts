@@ -20,8 +20,6 @@ export class VideoListComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('🔍 VideoListComponent: ngOnInit() called');
-    console.log('🔍 VideoListComponent: Initial videos.length:', this.videos.length);
     this.loadVideos();
   }
   
@@ -31,15 +29,11 @@ export class VideoListComponent implements OnInit, AfterViewInit {
   }
 
   loadVideos(): void {
-    console.log('🔍 VideoListComponent: loadVideos() called');
     this.videoService.getAllVideos().subscribe({
       next: (data) => {
-        console.log('✅ VideoListComponent: Videos received:', data?.length || 0, data);
         this.videos = data || [];
-        console.log('✅ VideoListComponent: videos array updated, length:', this.videos.length);
         // Force change detection
         this.cdr.detectChanges();
-        console.log('✅ VideoListComponent: Change detection triggered');
       },
       error: (err) => {
         console.error('❌ VideoListComponent: Error loading videos', err);
@@ -50,12 +44,10 @@ export class VideoListComponent implements OnInit, AfterViewInit {
   }
 
   goToUser(username: string) {
-    console.log('🔍 VideoListComponent: Navigating to user:', username);
     this.router.navigate(['/user', username]);
   }
 
   goToVideo(id: number) {
-    console.log('🔍 VideoListComponent: Navigating to video:', id);
     this.router.navigate(['/video', id]);
   }
 

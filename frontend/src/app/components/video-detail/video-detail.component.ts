@@ -31,7 +31,6 @@ export class VideoDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('🔍 VideoDetailComponent: ngOnInit() called');
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       console.log('🔍 VideoDetailComponent: Route param id:', id);
@@ -45,16 +44,13 @@ export class VideoDetailComponent implements OnInit {
   }
 
   loadVideo(id: number) {
-    console.log('🔍 VideoDetailComponent: loadVideo() called with id:', id);
     this.loading = true;
     this.cdr.detectChanges();
     this.videoService.getVideoById(id).subscribe({
       next: (data) => {
-        console.log('✅ VideoDetailComponent: Video loaded:', data);
         this.video = data;
         this.loading = false;
         this.cdr.detectChanges();
-        console.log('✅ VideoDetailComponent: loading set to false, change detection triggered');
         this.loadComments(id);
       },
       error: (err) => {
@@ -67,17 +63,14 @@ export class VideoDetailComponent implements OnInit {
   }
 
   loadComments(videoId: number) {
-    console.log('🔍 VideoDetailComponent: loadComments() called with videoId:', videoId);
     this.commentsLoading = true;
     this.cdr.detectChanges();
 
     this.commentService.getCommentsByVideoId(videoId).subscribe({
       next: (data) => {
-        console.log('✅ VideoDetailComponent: Comments loaded:', data?.length || 0, data);
         this.comments = data || [];
         this.commentsLoading = false;
         this.cdr.detectChanges();
-        console.log('✅ VideoDetailComponent: commentsLoading set to false, change detection triggered');
       },
       error: (err) => {
         console.error('❌ VideoDetailComponent: Error loading comments', err);
@@ -98,31 +91,23 @@ export class VideoDetailComponent implements OnInit {
   }
 
   onLikeClick() {
-    console.log('🔍 VideoDetailComponent: Like clicked');
-    
     if (!this.authService.tokenIsPresent()) {
-      console.log('❌ User not logged in, redirecting to login');
       this.router.navigate(['/login']);
       return;
     }
 
-    // TODO: Implementiraj like funkcionalnost kada budeš spremna
+    // TODO: Implementiraj like funkcionalnost
     console.log('✅ User is logged in, like functionality will be implemented');
     // this.videoService.likeVideo(this.video!.id).subscribe(...)
   }
 
   onSubmitComment() {
-    console.log('🔍 VideoDetailComponent: Submit comment clicked - START');
-    console.log('🔍 commentTextValue:', this.commentTextValue);
-    
     if (!this.authService.tokenIsPresent()) {
-      console.log('❌ User not logged in, redirecting to login');
       this.router.navigate(['/login']);
       return;
     }
 
     if (!this.commentTextValue || !this.commentTextValue.trim()) {
-      console.log('❌ Comment text is empty');
       alert('Molimo unesite tekst komentara');
       return;
     }

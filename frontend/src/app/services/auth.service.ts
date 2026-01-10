@@ -60,7 +60,7 @@ export class AuthService {
     localStorage.removeItem("jwt");
     localStorage.removeItem("token");
     this.access_token = null;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   tokenIsPresent(): boolean {

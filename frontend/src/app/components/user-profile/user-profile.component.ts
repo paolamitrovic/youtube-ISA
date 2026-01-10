@@ -12,7 +12,7 @@ import { User } from '../../models/user.model';
 })
 export class UserProfileComponent {
 
-  user?: User;         // korisnik će biti učitan
+  user?: User;         
   username!: string;
   loading: boolean = true;
 
@@ -24,12 +24,9 @@ export class UserProfileComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log('🔍 UserProfileComponent: ngOnInit() called');
-    
     // Koristi paramMap.subscribe umesto snapshot za bolju navigaciju
     this.route.paramMap.subscribe(params => {
       this.username = params.get('username')!;
-      console.log('🔍 UserProfileComponent: Route param username:', this.username);
       
       if (this.username) {
         this.loadUser(this.username);
@@ -45,11 +42,9 @@ export class UserProfileComponent {
     this.cdr.detectChanges();
     this.userService.getUserByUsername(username).subscribe({
       next: (data) => {
-        console.log('✅ UserProfileComponent: User loaded:', data);
         this.user = data;
         this.loading = false;
         this.cdr.detectChanges();
-        console.log('✅ UserProfileComponent: loading set to false, change detection triggered');
       },
       error: (err) => {
         console.error('❌ UserProfileComponent: Error loading user', err);
