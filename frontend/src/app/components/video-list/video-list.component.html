@@ -2,7 +2,7 @@
   <div 
     *ngFor="let video of videos; trackBy: trackByVideoId"
     class="video-card"
-    title="Pogledaj video" 
+    title="Pogledajte video" 
     (click)="goToVideo(video.id)">
     <img [src]="video.thumbnailPath" [alt]="video.title + ' thumbnail'">
     <div class="video-info">
@@ -10,7 +10,7 @@
       <p>
         <span
           class="username"
-          title="Pogledaj profil" 
+          title="Pogledajte profil" 
           (click)="goToUser(video.user.username); $event.stopPropagation()">
           @{{ video.user.username }}
         </span>

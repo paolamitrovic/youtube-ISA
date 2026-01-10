@@ -10,11 +10,11 @@
   <div class="video-info">
     <h2>{{ video.title }}</h2>
     <div class="video-meta">
-        <span class="username" (click)="goToUser(video.user.username)">
+        <span class="username" (click)="goToUser(video.user.username)" title="Pogledajte profil">
         @{{ video.user.username }}
         </span>
 
-        <span class="likes" (click)="onLikeClick()" title="Like video">
+        <span class="likes" (click)="onLikeClick()" title="Lajkujte video">
             <img src="assets/like.png" alt="like" style="cursor: pointer;">
         </span>
     </div>
@@ -25,7 +25,7 @@
   <div *ngIf="!commentsLoading && comments.length > 0" class="comments-section">
     <div *ngFor="let comment of comments; trackBy: trackByCommentDate" class="comment-box">
       <div class="comment-header">
-        <span class="comment-username" (click)="goToUser(comment.user.username)">
+        <span class="comment-username" (click)="goToUser(comment.user.username)" title="Pogledajte profil">
           @{{ comment.user.username }}
         </span>
         <span class="comment-date">{{ comment.createdAt | date:'d MMM y' }}</span>

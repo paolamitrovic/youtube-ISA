@@ -40,7 +40,7 @@ export class LoginComponent {
             console.error('Login failed', error);
             this.submitted = false;
             // Prilagodi prema tvom backend odgovoru
-            this.errorMessage = error.error?.message || 'Incorrect email or password.';
+            this.errorMessage = error.error?.message || 'Nevalidna e-mail adresa ili lozinka.';
           }
         });
     }

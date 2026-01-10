@@ -147,10 +147,16 @@
   flex: 1;
   padding: 0.8rem;
   border-radius: 10px;
-  border: 1px solid #333;
+  border: 1px solid #ddd;
   font-family: 'Nunito', sans-serif;
   font-size: 1rem;
   resize: none;
+}
+
+.add-comment-box textarea:focus {
+  outline: none;
+  border-color: #C62828;
+  box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.2);
 }
 
 .add-comment-box button {
