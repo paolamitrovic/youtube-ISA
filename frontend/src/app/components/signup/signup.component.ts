@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup.component',
@@ -12,12 +12,10 @@ import { Router } from '@angular/router';
 export class SignupComponent {
   signupForm: FormGroup;
   loading = false;
-  errorMessage = '';
-  successMessage = '';
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
+    private authService: AuthService,
     private router: Router
   ) {
     this.signupForm = this.fb.group({
@@ -51,22 +49,14 @@ export class SignupComponent {
     }
 
     this.loading = true;
-    this.errorMessage = '';
-    this.successMessage = '';
 
     const { confirmPassword, ...userData } = this.signupForm.value;
 
-    this.http.post('http://localhost:8080/auth/signup', userData)
-      .subscribe({
+    this.authService.signup(userData).subscribe({
         next: (response: any) => {
           this.loading = false;
           alert(response.message || 'Registracija uspešna! Molim Vas proverite email za aktivaciju.');
-          this.signupForm.reset();
-          
-          // Redirect to login after 3 seconds
-          setTimeout(() => {
-            this.router.navigate(['/login']);
-          }, 3000);
+          this.router.navigate(['/login']);
         },
         error: (err) => {
           this.loading = false;

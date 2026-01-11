@@ -2,16 +2,6 @@
   <div class="login-card">
     <h2>Registracija</h2>
 
-    <!-- Success Message -->
-    <div *ngIf="successMessage" class="alert alert-success text-center">
-      {{ successMessage }}
-    </div>
-
-    <!-- Error Message -->
-    <div *ngIf="errorMessage" class="alert alert-error text-center">
-      {{ errorMessage }}
-    </div>
-
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 
       <!-- Username -->

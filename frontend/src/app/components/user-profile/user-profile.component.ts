@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 
@@ -10,7 +9,7 @@ import { User } from '../../models/user.model';
   styleUrls: ['./user-profile.component.css'],
   standalone: false
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
 
   user?: User;         
   username!: string;
@@ -18,13 +17,11 @@ export class UserProfileComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private userService: UserService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    // Koristi paramMap.subscribe umesto snapshot za bolju navigaciju
     this.route.paramMap.subscribe(params => {
       this.username = params.get('username')!;
       
@@ -37,7 +34,6 @@ export class UserProfileComponent {
   }
 
   loadUser(username: string) {
-    console.log('🔍 UserProfileComponent: loadUser() called with username:', username);
     this.loading = true;
     this.cdr.detectChanges();
     this.userService.getUserByUsername(username).subscribe({

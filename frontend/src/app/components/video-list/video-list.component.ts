@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Video } from '../../models/video.model';
 import { VideoService } from '../../services/video.service';
@@ -9,7 +9,7 @@ import { VideoService } from '../../services/video.service';
   styleUrls: ['./video-list.component.css'],
   standalone: false
 })
-export class VideoListComponent implements OnInit, AfterViewInit {
+export class VideoListComponent implements OnInit {
 
   videos: Video[] = [];
 
@@ -22,17 +22,11 @@ export class VideoListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.loadVideos();
   }
-  
-  ngAfterViewInit(): void {
-    console.log('🔍 VideoListComponent: ngAfterViewInit() called');
-    console.log('🔍 VideoListComponent: videos.length in ngAfterViewInit:', this.videos.length);
-  }
 
   loadVideos(): void {
     this.videoService.getAllVideos().subscribe({
       next: (data) => {
         this.videos = data || [];
-        // Force change detection
         this.cdr.detectChanges();
       },
       error: (err) => {

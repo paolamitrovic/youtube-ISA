@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfigService } from '../../services/config.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-activate.component',
@@ -17,8 +17,7 @@ export class ActivateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient,
-    private config: ConfigService,
+    private authService: AuthService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -34,11 +33,7 @@ export class ActivateComponent implements OnInit {
       return;
     }
 
-    const url = `${this.config.activate_url}?token=${token}`;
-    console.log('🔍 Activation URL:', url);
-
-    this.http.get(url, { observe: 'response', responseType: 'text' })
-      .subscribe({
+    this.authService.activate(token).subscribe({
         next: (response: any) => {
           console.log('✅ Activation success:', response);
           this.success = true;

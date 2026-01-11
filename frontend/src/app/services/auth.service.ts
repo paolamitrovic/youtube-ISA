@@ -56,6 +56,12 @@ export class AuthService {
       }));
   }
 
+  activate(token: string) {
+    const url = `${this.config.activate_url}?token=${token}`;
+    return this.apiService.get(url);
+  }
+
+
   logout() {
     localStorage.removeItem("jwt");
     localStorage.removeItem("token");

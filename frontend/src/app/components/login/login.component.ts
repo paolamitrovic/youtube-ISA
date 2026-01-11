@@ -11,8 +11,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   form: FormGroup;
-  loading = false;        // koristi se za dugme
-  errorMessage: string = '';
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -51,7 +50,6 @@ export class LoginComponent {
     }
 
     this.loading = true;
-    this.errorMessage = '';
 
     this.authService.login(this.form.value).subscribe({
       next: (res) => {

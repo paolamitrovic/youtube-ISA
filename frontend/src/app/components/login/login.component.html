@@ -2,11 +2,6 @@
   <div class="login-card">
     <h2>Prijava</h2>
 
-    <!-- Error Message -->
-    <div *ngIf="errorMessage" class="alert alert-error text-center">
-      {{ errorMessage }}
-    </div>
-
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
       <!-- Email -->

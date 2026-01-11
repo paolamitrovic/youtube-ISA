@@ -141,13 +141,23 @@ public class AuthenticationController {
     }
     
     @GetMapping("/activate")
-    public ResponseEntity<?> activateAccount(@RequestParam String token) {
+    public ResponseEntity<Map<String, String>> activateAccount(@RequestParam String token) {
         try {
-        	userService.activateAccount(token);
-            return ResponseEntity.ok("Nalog je uspešno aktiviran. Možete sada da se prijavite.");
+            userService.activateAccount(token);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Nalog je uspešno aktiviran. Možete sada da se prijavite.");
+
+            return ResponseEntity.ok(response);
+
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Activation failed: " + e.getMessage());
+            Map<String, String> error = new HashMap<>();
+            error.put("message", "Aktivacija naloga neuspešna: " + e.getMessage());
+
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(error);
         }
     }
+
 }

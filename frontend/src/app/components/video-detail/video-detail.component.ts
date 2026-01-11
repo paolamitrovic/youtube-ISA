@@ -33,7 +33,6 @@ export class VideoDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
-      console.log('🔍 VideoDetailComponent: Route param id:', id);
       if (id) {
         this.loadVideo(+id);
       } else {
@@ -113,7 +112,7 @@ export class VideoDetailComponent implements OnInit {
       return;
     }
 
-    // TODO: Implementiraj postavljanje komentara kada budeš spremna
+    // TODO: Implementiraj postavljanje komentara
     console.log('✅ User is logged in, submitting comment:', this.commentTextValue);
     // this.commentService.postComment(this.video!.id, this.commentTextValue.trim()).subscribe({
     //   next: () => {
