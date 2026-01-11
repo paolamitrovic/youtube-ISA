@@ -60,8 +60,23 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loading = false;
-        this.errorMessage = err.error?.message || 'Nevalidna e-mail adresa ili lozinka.';
-      }
+
+        if (err.status === 401) {
+            // pogrešna lozinka ili korisnik ne postoji
+            alert('Pogrešna e-mail adresa ili lozinka.');
+        } else if (err.status === 429) {
+            // previše pokušaja sa iste IP
+            alert('Previše pokušaja prijave. Pokušajte ponovo za minut.');
+            // opciono: blokiraj dugme na minut
+            this.loading = true;
+            setTimeout(() => {
+                this.loading = false;
+            }, 60000);
+        } else {
+            alert('Došlo je do greške. Pokušajte kasnije.');
+        }
+    }
+
     });
   }
 

@@ -60,7 +60,7 @@ export class SignupComponent {
       .subscribe({
         next: (response: any) => {
           this.loading = false;
-          this.successMessage = response.message || 'Registracija uspešna! Proverite email za aktivaciju.';
+          alert(response.message || 'Registracija uspešna! Molim Vas proverite email za aktivaciju.');
           this.signupForm.reset();
           
           // Redirect to login after 3 seconds
@@ -70,7 +70,7 @@ export class SignupComponent {
         },
         error: (err) => {
           this.loading = false;
-          this.errorMessage = err.error?.message || 'Greška pri registraciji. Pokušajte ponovo.';
+          alert(err.error?.message || 'Došlo je do greške pri registraciji. Pokušajte ponovo.');
         }
       });
   }
