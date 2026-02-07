@@ -4,7 +4,7 @@
     class="video-card"
     title="Pogledajte video" 
     (click)="goToVideo(video.id)">
-    <img [src]="video.thumbnailPath" [alt]="video.title + ' thumbnail'">
+    <img [src]="getThumbnailUrl(video.id)" [alt]="video.title + ' thumbnail'">
     <div class="video-info">
       <h3>{{ video.title }}</h3>
       <p>

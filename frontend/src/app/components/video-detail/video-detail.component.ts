@@ -5,6 +5,7 @@ import { VideoService } from '../../services/video.service';
 import { Comment } from '../../models/comment.model';
 import { CommentService } from '../../services/comment.service';
 import { AuthService } from '../../services/auth.service';
+import { ConfigService } from '../../services/config.service';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class VideoDetailComponent implements OnInit {
     private videoService: VideoService,
     private commentService: CommentService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private config: ConfigService
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +50,8 @@ export class VideoDetailComponent implements OnInit {
     this.videoService.getVideoById(id).subscribe({
       next: (data) => {
         this.video = data;
+        console.log('✅ Video loaded:', data);
+        console.log('✅ Video URL:', this.getVideoUrl(data.id));
         this.loading = false;
         this.cdr.detectChanges();
         this.loadComments(id);
@@ -120,5 +124,9 @@ export class VideoDetailComponent implements OnInit {
     //     this.loadComments(this.video!.id);
     //   }
     // });
+  }
+
+  getVideoUrl(videoId: number): string {
+    return this.config.getVideoUrl(videoId);
   }
 }

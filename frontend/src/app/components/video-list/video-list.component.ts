@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Video } from '../../models/video.model';
 import { VideoService } from '../../services/video.service';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-video-list',
@@ -16,7 +17,8 @@ export class VideoListComponent implements OnInit {
   constructor(
     private videoService: VideoService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private config: ConfigService
   ) {}
 
   ngOnInit(): void {
@@ -47,5 +49,9 @@ export class VideoListComponent implements OnInit {
 
   trackByVideoId(index: number, video: Video): number {
     return video.id;
+  }
+
+  getThumbnailUrl(videoId: number): string {
+    return this.config.getThumbnailUrl(videoId);
   }
 }

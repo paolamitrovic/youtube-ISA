@@ -26,6 +26,7 @@ import { ConfigService } from './services/config.service';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { SignupComponent } from './components/signup/signup.component';
 import { ActivateComponent } from './components/activate/activate.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ActivateComponent } from './components/activate/activate.component';
     LoginComponent,
     NavbarComponent,
     SignupComponent,
-    ActivateComponent
+    ActivateComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

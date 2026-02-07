@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService {
   
-  private _auth_url = 'http://localhost:8080/auth';  // <-- Promeni port ako treba
+  private _auth_url = 'http://localhost:8080/auth';
   private _base_url = 'http://localhost:8080';
 
   private _login_url = this._auth_url + '/login';
@@ -50,5 +50,13 @@ export class ConfigService {
 
   getCommentsByVideoIdUrl(videoId: number): string {
     return `${this._comments_url}/video/${videoId}`;
+  }
+
+  getThumbnailUrl(videoId: number): string {
+    return `${this._videos_url}/thumbnails/${videoId}`;
+  }
+
+  getVideoUrl(videoId: number): string {
+    return `${this._videos_url}/stream/${videoId}`;
   }
 }

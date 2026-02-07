@@ -4,7 +4,9 @@
 
 <div *ngIf="!loading && video">
   <div class="video-container">
-    <video [src]="video.videoPath" controls autoplay></video>
+    <video [src]="getVideoUrl(video.id)" controls autoplay preload="metadata">
+      Vaš browser ne podržava video tag.
+    </video>
   </div>
 
   <div class="video-info">

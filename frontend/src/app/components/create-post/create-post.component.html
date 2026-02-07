@@ -1,0 +1,123 @@
+<div class="create-post-container">
+  <div class="create-post-card">
+    <h2>Kreiraj novu objavu</h2>
+
+    <form [formGroup]="createPostForm" (ngSubmit)="onSubmit()">
+
+      <!-- Title -->
+      <div class="form-group">
+        <label for="title">Naslov *</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('title')"
+          placeholder="Unesite naslov videa"
+        />
+        <div *ngIf="isFieldInvalid('title')" class="error-message">
+          {{ getErrorMessage('title') }}
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Opis videa *</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('description')"
+          placeholder="Unesite opis videa"
+          rows="4"
+        ></textarea>
+        <div *ngIf="isFieldInvalid('description')" class="error-message">
+          {{ getErrorMessage('description') }}
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="form-group">
+        <label for="tags">Tagovi</label>
+        <input
+          type="text"
+          id="tags"
+          [(ngModel)]="tagsInput"
+          [ngModelOptions]="{standalone: true}"
+          class="form-control"
+          placeholder="Unesite tagove odvojene zarezom (npr. tehnologija, programiranje, tutorial)"
+        />
+        <small class="form-text">Tagovi pomažu drugim korisnicima da pronađu vaš video</small>
+      </div>
+
+      <!-- Location -->
+      <div class="form-group">
+        <label for="location">Geografska lokacija (opciono)</label>
+        <input
+          type="text"
+          id="location"
+          formControlName="location"
+          class="form-control"
+          placeholder="Unesite lokaciju (npr. Beograd, Srbija)"
+        />
+      </div>
+
+      <!-- Thumbnail Upload -->
+      <div class="form-group">
+        <label for="thumbnail">Thumbnail slika *</label>
+        <div class="file-upload-wrapper">
+          <input
+            type="file"
+            id="thumbnail"
+            accept="image/*"
+            (change)="onThumbnailSelected($event)"
+            class="file-input"
+          />
+          <label for="thumbnail" class="file-label">
+            <span *ngIf="!selectedThumbnail">Izaberite thumbnail sliku</span>
+            <span *ngIf="selectedThumbnail">{{ selectedThumbnail.name }}</span>
+          </label>
+        </div>
+        <div *ngIf="thumbnailPreview" class="thumbnail-preview">
+          <img [src]="thumbnailPreview" alt="Thumbnail preview" />
+        </div>
+      </div>
+
+      <!-- Video Upload -->
+      <div class="form-group">
+        <label for="video">Video (MP4, max 200MB) *</label>
+        <div class="file-upload-wrapper">
+          <input
+            type="file"
+            id="video"
+            accept="video/mp4"
+            (change)="onVideoSelected($event)"
+            class="file-input"
+          />
+          <label for="video" class="file-label upload-button">
+            <span class="upload-icon">🎬</span>
+            <span *ngIf="!selectedVideo">Izaberite video fajl</span>
+            <span *ngIf="selectedVideo">{{ selectedVideo.name }}</span>
+          </label>
+        </div>
+        <div *ngIf="videoSizeError" class="error-message">
+          {{ videoSizeError }}
+        </div>
+        <div *ngIf="selectedVideo && !videoSizeError" class="video-info">
+          <small>Veličina: {{ (selectedVideo.size / (1024 * 1024)).toFixed(2) }} MB</small>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        <span *ngIf="!loading">Kreiraj objavu</span>
+        <span *ngIf="loading">Kreiranje u toku...</span>
+      </button>
+
+      <!-- Cancel Link -->
+      <div class="cancel-link">
+        <a routerLink="/" style="cursor: pointer;">Otkaži</a>
+      </div>
+    </form>
+  </div>
+</div>
