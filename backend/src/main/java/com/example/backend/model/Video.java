@@ -22,8 +22,9 @@ public class Video {
     private LocalDateTime scheduledAt;
 
     private Long views;
+    private String location;
 
-    @ManyToOne
+	@ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -67,6 +68,9 @@ public class Video {
     public Long getViews() { return views; }
     public void setViews(Long views) { this.views = views; }
 
+    public String getLocation() { return location; }
+	public void setLocation(String location) { this.location = location; }
+    
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
 

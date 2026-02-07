@@ -94,6 +94,8 @@ public class WebSecurityConfig {
 
         // Disable CSRF for REST API
         http.csrf(csrf -> csrf.disable());
+        
+        //http.headers(headers -> headers.frameOptions().disable());
 
         // Add custom JWT filter
         http.addFilterBefore(

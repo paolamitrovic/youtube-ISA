@@ -33,7 +33,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             "/auth/login",
             "/auth/signup",
             "/auth/activate",
-            "/h2-console"
+            "/h2-console",
+            "/videos/",  // GET /videos
+            "/videos/stream/",  // GET /videos/stream/{id}
+            "/videos/thumbnails/"  // GET /videos/thumbnails/{id}
         );
     
     public TokenAuthenticationFilter(TokenUtils tokenHelper, UserDetailsService userDetailsService) {
@@ -45,10 +48,12 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
     	
-    	String requestPath = request.getRequestURI();  // DODAJ OVU LINIJU
+    	String requestPath = request.getRequestURI();
+    	String method = request.getMethod();
         
         // Preskoči token validaciju za javne endpointe
-        if (isPublicEndpoint(requestPath)) {
+        // Za videos endpoint, dozvoli samo GET zahteve bez tokena
+        if (isPublicEndpoint(requestPath, method)) {
             chain.doFilter(request, response);
             return;
         }
@@ -88,7 +93,15 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
     
-    private boolean isPublicEndpoint(String requestPath) {
+    private boolean isPublicEndpoint(String requestPath, String method) {
+        // Proveri da li je GET zahtev za videos endpoint
+        // Pokriva: /videos, /videos/, /videos/{id}, /videos/stream/{id}, /videos/thumbnails/{id}
+        if (("GET".equals(method)) && 
+            (requestPath.equals("/videos") || requestPath.startsWith("/videos/"))) {
+            // Dozvoli pristup svim GET zahtevima za videos (stream, thumbnails, lista, pojedinačni video)
+            return true;
+        }
+        
         return PUBLIC_ENDPOINTS.stream()
                 .anyMatch(endpoint -> requestPath.startsWith(endpoint));
     }

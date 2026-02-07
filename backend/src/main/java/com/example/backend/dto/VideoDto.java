@@ -1,10 +1,8 @@
 package com.example.backend.dto;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.example.backend.model.User;
 import com.example.backend.model.Video;
 
 public class VideoDto {
@@ -16,6 +14,7 @@ public class VideoDto {
     private String videoPath;
     private LocalDateTime createdAt;
     private Long views;
+    private String location;
     private UserDto user;
     private List<CommentDto> comments;
     private List<LikeDto> likes;
@@ -109,8 +108,16 @@ public class VideoDto {
 		this.createdAt = createdAt;
 	}
 
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public VideoDto(Long id, String title, String description, String thumbnailPath, String videoPath, LocalDateTime createdAt,
-			Long views, UserDto user, List<CommentDto> comments, List<LikeDto> likes, List<TagDto> tags) {
+			Long views, String location, UserDto user, List<CommentDto> comments, List<LikeDto> likes, List<TagDto> tags) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -119,6 +126,7 @@ public class VideoDto {
 		this.videoPath = videoPath;
 		this.createdAt = createdAt;
 		this.views = views;
+		this.location = location;
 		this.user = user;
 		this.comments = comments;
 		this.likes = likes;
@@ -133,6 +141,7 @@ public class VideoDto {
 		this.videoPath = video.getVideoPath();
 		this.createdAt = video.getCreatedAt();
 		this.views = video.getViews();
+		this.location = video.getLocation();
 		this.user = new UserDto(video.getUser());
 		this.comments = video.getComments().stream().map(comment -> new CommentDto(comment)).toList();
 		this.likes = video.getLikes().stream().map(like -> new LikeDto(like)).toList();
