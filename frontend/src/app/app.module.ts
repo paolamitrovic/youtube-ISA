@@ -21,12 +21,16 @@ import { UserService } from './services/user.service';
 import { CommentService } from './services/comment.service';
 import { ApiService } from './services/api.service';
 import { ConfigService } from './services/config.service';
+import { WatchPartyService } from './services/watch-party.service';
 
 // Importuj interceptor
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { SignupComponent } from './components/signup/signup.component';
 import { ActivateComponent } from './components/activate/activate.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { WatchPartyListComponent } from './components/watch-party-list/watch-party-list.component';
+import { WatchPartyCreateComponent } from './components/watch-party-create/watch-party-create.component';
+import { WatchPartyRoomComponent } from './components/watch-party-room/watch-party-room.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,10 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
     NavbarComponent,
     SignupComponent,
     ActivateComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    WatchPartyListComponent,
+    WatchPartyCreateComponent,
+    WatchPartyRoomComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +67,7 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
     CommentService,
     ApiService,
     ConfigService,
+    WatchPartyService,
   ],
   bootstrap: [AppComponent]
 })

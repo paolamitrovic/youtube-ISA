@@ -59,4 +59,26 @@ export class ConfigService {
   getVideoUrl(videoId: number): string {
     return `${this._videos_url}/stream/${videoId}`;
   }
+
+  // Watch Party endpoints
+  private _watch_parties_url = this._base_url + '/watch-parties';
+  get watch_parties_url(): string {
+    return this._watch_parties_url;
+  }
+
+  getWatchPartyByIdUrl(id: number): string {
+    return `${this._watch_parties_url}/${id}`;
+  }
+
+  getJoinWatchPartyUrl(id: number): string {
+    return `${this._watch_parties_url}/${id}/join`;
+  }
+
+  getPlayVideoUrl(id: number): string {
+    return `${this._watch_parties_url}/${id}/play`;
+  }
+
+  getSocketUrl(): string {
+    return this._base_url + '/socket';
+  }
 }

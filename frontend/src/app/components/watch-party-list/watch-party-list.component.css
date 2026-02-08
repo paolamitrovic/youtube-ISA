@@ -1,0 +1,101 @@
+.watch-party-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-section h1 {
+  margin: 0;
+  color: #333;
+}
+
+.create-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.create-button:hover {
+  background-color: #0056b3;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.watch-party-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.watch-party-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.watch-party-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.watch-party-info h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.video-info {
+  color: #666;
+  margin: 5px 0;
+}
+
+.no-video {
+  color: #999;
+  font-style: italic;
+  margin: 5px 0;
+}
+
+.members-count {
+  color: #888;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.join-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.join-button:hover {
+  background-color: #218838;
+}
+
+.no-watch-parties {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}

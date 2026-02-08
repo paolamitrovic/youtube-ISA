@@ -1,0 +1,55 @@
+<div class="watch-party-room-container">
+  <div *ngIf="loading" class="loading">
+    <p>Učitavanje sobe...</p>
+  </div>
+
+  <div *ngIf="!loading && watchParty" class="room-content">
+    <div class="room-header">
+      <h1>{{ watchParty.name }}</h1>
+      <button *ngIf="!watchParty.members || watchParty.members.length === 0" 
+              class="join-button" 
+              (click)="joinWatchParty()">
+        Pridruži se sobi
+      </button>
+    </div>
+
+    <div class="members-section">
+      <h3>Članovi ({{ (watchParty.members || []).length }})</h3>
+      <div class="members-list">
+        <div *ngFor="let member of watchParty.members" class="member-item">
+          <span>@{{ member.username }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isCreator" class="video-selector-section">
+      <h3>Odaberite video za gledanje</h3>
+      <div *ngIf="videosLoading" class="loading-videos">
+        <p>Učitavanje videa...</p>
+      </div>
+      <div *ngIf="!videosLoading && videos && videos.length > 0" class="video-grid">
+        <div 
+          *ngFor="let video of videos" 
+          class="video-card"
+          (click)="playVideo(video.id)">
+          <img [src]="getThumbnailUrl(video.id)" [alt]="video.title">
+          <div class="video-info">
+            <h4>{{ video.title }}</h4>
+            <p>@{{ video.user.username }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="currentVideo" class="current-video-section">
+      <h3>Trenutno se gleda:</h3>
+      <div class="current-video-card" (click)="goToVideo(currentVideo.id)">
+        <img [src]="getThumbnailUrl(currentVideo.id)" [alt]="currentVideo.title">
+        <div class="video-info">
+          <h4>{{ currentVideo.title }}</h4>
+          <p>@{{ currentVideo.user.username }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

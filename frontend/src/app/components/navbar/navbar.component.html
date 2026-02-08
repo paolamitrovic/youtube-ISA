@@ -6,7 +6,7 @@
         <a *ngIf="!isLoggedIn()" (click)="router.navigate(['/login'])" style="cursor: pointer;">Prijava</a>
         <a *ngIf="!isLoggedIn()" (click)="router.navigate(['/signup'])" style="cursor: pointer;">Registracija</a>
         <a *ngIf="isLoggedIn()" (click)="router.navigate(['/create-post'])" style="cursor: pointer;">Postavite video</a>
-        <a *ngIf="isLoggedIn()" href="#">Zajedničko gledanje videa</a>
+        <a *ngIf="isLoggedIn()" (click)="router.navigate(['/watch-party'])" style="cursor: pointer;">Zajedničko gledanje videa</a>
         <a *ngIf="isLoggedIn()" (click)="logout()" style="cursor: pointer;">Odjava</a>
     </div>
 </div>

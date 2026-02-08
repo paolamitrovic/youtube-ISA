@@ -86,6 +86,7 @@ public class WebSecurityConfig {
             .requestMatchers(HttpMethod.GET, "/videos/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/comments/**").permitAll()
+            .requestMatchers("/socket/**").permitAll()      // WebSocket endpoint
             .anyRequest().authenticated()                    // All other requests require auth
         );
 
