@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.example.backend.mq;
+
+option java_package = "com.example.backend.mq";
+option java_outer_classname = "UploadEventProto";
+
+message UploadEvent {
+  int64 video_id = 1;
+  string title = 2;
+  string description = 3;
+  int64 video_size_bytes = 4;
+  string author_username = 5;
+  string author_email = 6;
+  int64 created_at_timestamp = 7;
+  string location = 8;
+  repeated string tags = 9;
+}

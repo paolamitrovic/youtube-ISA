@@ -17,8 +17,13 @@ import com.example.backend.model.Tag;
 import com.example.backend.model.User;
 import com.example.backend.model.Video;
 import com.example.backend.model.VideoTag;
+import com.example.backend.mq.MessageProducer;
+import com.example.backend.mq.UploadEvent;
 import com.example.backend.repository.ITagRepository;
 import com.example.backend.repository.IVideoRepository;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @Service
 public class VideoService {
@@ -31,6 +36,9 @@ public class VideoService {
 	
 	@Autowired
 	private FileStorageService fileStorageService;
+	
+	@Autowired(required = false)
+	private MessageProducer messageProducer;
 	
 	private static final long UPLOAD_TIMEOUT_SECONDS = 300; // 5 minuta
 	
@@ -106,13 +114,49 @@ public class VideoService {
 						videoTags.add(videoTag);
 					}
 				}
-				if (!videoTags.isEmpty()) {
-					newVideo.setVideoTags(videoTags);
-					newVideo = videoRepository.save(newVideo);
-				}
+			if (!videoTags.isEmpty()) {
+				newVideo.setVideoTags(videoTags);
+				newVideo = videoRepository.save(newVideo);
 			}
-			
-			return newVideo;
+		}
+		
+		// Send message to queue after successful video creation
+		if (messageProducer != null) {
+			try {
+				long videoSizeBytes = 0;
+				try {
+					java.nio.file.Path videoFilePath = java.nio.file.Paths.get(videoPath);
+					if (Files.exists(videoFilePath)) {
+						videoSizeBytes = Files.size(videoFilePath);
+					}
+				} catch (Exception e) {
+					// If we can't get file size, use 0
+				}
+				
+				List<String> tagNamesList = newVideo.getTags().stream()
+					.map(Tag::getName)
+					.toList();
+				
+				UploadEvent event = new UploadEvent(
+					newVideo.getId(),
+					newVideo.getTitle(),
+					newVideo.getDescription(),
+					videoSizeBytes,
+					newVideo.getUser().getUsername(),
+					newVideo.getUser().getEmail(),
+					newVideo.getCreatedAt(),
+					newVideo.getLocation(),
+					tagNamesList
+				);
+				
+				messageProducer.sendMessage(event);
+			} catch (Exception e) {
+				// Log error but don't fail video creation if message sending fails
+				System.err.println("Error sending upload event message: " + e.getMessage());
+			}
+		}
+		
+		return newVideo;
 			
 		} catch (Exception e) {
 			// Rollback - brisanje uploadovanih fajlova ako upload ne uspe
