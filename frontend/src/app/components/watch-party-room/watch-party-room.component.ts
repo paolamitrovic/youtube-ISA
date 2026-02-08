@@ -136,7 +136,7 @@ export class WatchPartyRoomComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error('❌ WatchPartyRoomComponent: Error playing video', err);
-        alert('Greška pri pokretanju videa.');
+        alert('Samo osoba koja je napravila sobu može da menja video koji se gleda!');
       }
     });
   }
