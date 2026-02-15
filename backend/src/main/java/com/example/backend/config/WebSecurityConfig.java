@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import com.example.backend.security.auth.RestAuthenticationEntryPoint;
 import com.example.backend.security.auth.TokenAuthenticationFilter;
@@ -32,6 +33,9 @@ public class WebSecurityConfig {
 
     @Autowired
     private TokenUtils tokenUtils;
+    
+    @Autowired
+    private CorsConfigurationSource corsConfigurationSource;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -65,8 +69,12 @@ public class WebSecurityConfig {
         http.exceptionHandling(exception -> 
             exception.authenticationEntryPoint(restAuthenticationEntryPoint));
 
+        // CORS configuration - MUST be before authorizeHttpRequests
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource));
+
         // Configure URL access
         http.authorizeHttpRequests(auth -> auth
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // Allow OPTIONS for CORS preflight
             .requestMatchers("/auth/**").permitAll()        // Public endpoints
             .requestMatchers("/h2-console/**").permitAll()  // H2 console (if used)
             .requestMatchers("/api/foo").permitAll()        // Example public endpoint
@@ -89,9 +97,6 @@ public class WebSecurityConfig {
             .requestMatchers("/socket/**").permitAll()      // WebSocket endpoint
             .anyRequest().authenticated()                    // All other requests require auth
         );
-
-        // CORS configuration
-        http.cors(cors -> cors.configure(http));
 
         // Disable CSRF for REST API
         http.csrf(csrf -> csrf.disable());

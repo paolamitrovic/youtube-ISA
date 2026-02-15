@@ -21,6 +21,14 @@ export class VideoDetailComponent implements OnInit {
   comments: Comment[] = [];
   commentsLoading: boolean = true;
   commentTextValue: string = '';
+  
+  // Pagination
+  currentPage: number = 0;
+  pageSize: number = 10;
+  totalElements: number = 0;
+  totalPages: number = 0;
+  hasNext: boolean = false;
+  hasPrevious: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,13 +73,18 @@ export class VideoDetailComponent implements OnInit {
     });
   }
 
-  loadComments(videoId: number) {
+  loadComments(videoId: number, page: number = 0) {
     this.commentsLoading = true;
+    this.currentPage = page;
     this.cdr.detectChanges();
 
-    this.commentService.getCommentsByVideoId(videoId).subscribe({
+    this.commentService.getCommentsByVideoIdPaginated(videoId, page, this.pageSize).subscribe({
       next: (data) => {
-        this.comments = data || [];
+        this.comments = data.content || [];
+        this.totalElements = data.totalElements;
+        this.totalPages = data.totalPages;
+        this.hasNext = data.hasNext;
+        this.hasPrevious = data.hasPrevious;
         this.commentsLoading = false;
         this.cdr.detectChanges();
       },
@@ -83,13 +96,25 @@ export class VideoDetailComponent implements OnInit {
       }
     });
   }
+  
+  loadNextPage() {
+    if (this.hasNext && this.video) {
+      this.loadComments(this.video.id, this.currentPage + 1);
+    }
+  }
+  
+  loadPreviousPage() {
+    if (this.hasPrevious && this.video) {
+      this.loadComments(this.video.id, this.currentPage - 1);
+    }
+  }
 
   goToUser(username: string) {
     this.router.navigate(['/user', username]);
   }
 
-  trackByCommentDate(index: number, comment: Comment): any {
-    return comment.createdAt;
+  trackByCommentId(index: number, comment: Comment): any {
+    return comment.id || comment.createdAt;
   }
 
   onLikeClick() {
@@ -116,14 +141,31 @@ export class VideoDetailComponent implements OnInit {
       return;
     }
 
-    // TODO: Implementiraj postavljanje komentara
-    console.log('✅ User is logged in, submitting comment:', this.commentTextValue);
-    // this.commentService.postComment(this.video!.id, this.commentTextValue.trim()).subscribe({
-    //   next: () => {
-    //     this.commentTextValue = '';
-    //     this.loadComments(this.video!.id);
-    //   }
-    // });
+    if (!this.video) {
+      alert('Video nije učitan');
+      return;
+    }
+
+    const commentText = this.commentTextValue.trim();
+    this.commentService.createComment(commentText, this.video.id).subscribe({
+      next: (newComment) => {
+        console.log('✅ Comment created:', newComment);
+        this.commentTextValue = '';
+        // Reload comments from first page to show the new comment
+        this.loadComments(this.video!.id, 0);
+      },
+      error: (err) => {
+        console.error('❌ Error creating comment:', err);
+        if (err.status === 429 || err.status === 403) {
+          alert('Prekoračili ste limit od 60 komentara po satu. Molimo sačekajte.');
+        } else if (err.status === 401) {
+          alert('Morate biti prijavljeni da biste postavili komentar.');
+          this.router.navigate(['/login']);
+        } else {
+          alert('Greška pri postavljanju komentara: ' + (err.error?.message || err.message || 'Nepoznata greška'));
+        }
+      }
+    });
   }
 
   getVideoUrl(videoId: number): string {

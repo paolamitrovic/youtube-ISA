@@ -52,6 +52,14 @@ export class ConfigService {
     return `${this._comments_url}/video/${videoId}`;
   }
 
+  getCommentsByVideoIdPaginatedUrl(videoId: number, page: number, size: number): string {
+    return `${this._comments_url}/video/${videoId}/paginated?page=${page}&size=${size}`;
+  }
+
+  getCreateCommentUrl(): string {
+    return `${this._comments_url}`;
+  }
+
   getThumbnailUrl(videoId: number): string {
     return `${this._videos_url}/thumbnails/${videoId}`;
   }

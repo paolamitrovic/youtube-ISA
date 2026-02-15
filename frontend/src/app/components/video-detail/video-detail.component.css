@@ -172,3 +172,64 @@
 .add-comment-box button:hover {
   background-color: #9e1f1f;
 }
+
+/* Comments header */
+.comments-header {
+  margin-bottom: 1rem;
+}
+
+.comments-header h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0;
+}
+
+/* Pagination controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+}
+
+.pagination-btn {
+  background-color: #C62828;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: 'Nunito', sans-serif;
+  transition: background-color 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #9e1f1f;
+}
+
+.pagination-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.page-info {
+  font-size: 0.9rem;
+  color: #555;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* No comments message */
+.no-comments {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  color: #555;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}

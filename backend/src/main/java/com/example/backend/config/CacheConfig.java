@@ -10,6 +10,6 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("thumbnails");
+        return new ConcurrentMapCacheManager("thumbnails", "comments");
     }
 }

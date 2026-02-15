@@ -25,7 +25,10 @@
   </div>
 
   <div *ngIf="!commentsLoading && comments.length > 0" class="comments-section">
-    <div *ngFor="let comment of comments; trackBy: trackByCommentDate" class="comment-box">
+    <div class="comments-header">
+      <h3>Komentari ({{ totalElements }})</h3>
+    </div>
+    <div *ngFor="let comment of comments; trackBy: trackByCommentId" class="comment-box">
       <div class="comment-header">
         <span class="comment-username" (click)="goToUser(comment.user.username)" title="Pogledajte profil">
           @{{ comment.user.username }}
@@ -34,6 +37,31 @@
       </div>
       <p class="comment-text">{{ comment.text }}</p>
     </div>
+    
+    <!-- Pagination controls -->
+    <div *ngIf="totalPages > 1" class="pagination-controls">
+      <button 
+        (click)="loadPreviousPage()" 
+        [disabled]="!hasPrevious"
+        class="pagination-btn"
+        type="button">
+        Prethodna
+      </button>
+      <span class="page-info">
+        Strana {{ currentPage + 1 }} od {{ totalPages }}
+      </span>
+      <button 
+        (click)="loadNextPage()" 
+        [disabled]="!hasNext"
+        class="pagination-btn"
+        type="button">
+        Sledeća
+      </button>
+    </div>
+  </div>
+  
+  <div *ngIf="!commentsLoading && comments.length === 0" class="no-comments">
+    <p>Nema komentara. Budite prvi koji će komentarisati!</p>
   </div>
 
   <div class="add-comment-box">
