@@ -13,7 +13,7 @@
 // ============================================
 
 // ⚠️ VAŽNO: Zamenite ovaj broj sa stvarnim ID-jem vašeg videa!
-const VIDEO_ID = 1; // <-- OVDE ZAMENITE BROJ!
+const VIDEO_ID = 11; // <-- OVDE ZAMENITE BROJ!
 const API_BASE_URL = 'http://localhost:8080';
 const COMMENTS_TO_SEND = 65;
 

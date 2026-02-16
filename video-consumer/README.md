@@ -54,9 +54,7 @@ server.port=8081
 ## Benchmark
 
 Za pokretanje benchmark poređenja:
-```bash
-curl -X POST http://localhost:8081/benchmark/run
-```
+```curl -X POST http://localhost:8081/benchmark/run```
 
 ## Napomene
 
