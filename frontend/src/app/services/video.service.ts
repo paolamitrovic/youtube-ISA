@@ -30,4 +30,10 @@ export class VideoService {
     // Just use http.post directly - don't set any headers manually
     return this.http.post<Video>(this.config.videos_url, formData);
   }
+
+  incrementViews(videoId: number): Observable<Video> {
+    // Poziva endpoint za inkrement pregleda - ne zahteva autentifikaciju
+    // Koristimo http.post direktno jer ApiService možda ne radi dobro sa praznim body-jem
+    return this.http.post<Video>(this.config.getIncrementViewsUrl(videoId), {});
+  }
 }

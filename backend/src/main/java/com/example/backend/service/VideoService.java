@@ -9,7 +9,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,6 +50,46 @@ public class VideoService {
 	
 	public Video findById(Long id) {
 		return videoRepository.findById(id).orElseThrow();
+	}
+	
+	/**
+	 * Thread-safe inkrement broja pregleda koristeći optimistic locking.
+	 * Metoda će pokušati ponovo u slučaju OptimisticLockingFailureException.
+	 * Retry logika je van transakcije, a svaki pokušaj ima svoju novu transakciju.
+	 */
+	public void incrementViews(Long videoId) {
+		int maxAttempts = 5;
+		int attempt = 0;
+		
+		while (attempt < maxAttempts) {
+			try {
+				incrementViewsInTransaction(videoId);
+				return;
+			} catch (OptimisticLockingFailureException e) {
+				attempt++;
+				if (attempt >= maxAttempts) {
+					throw new RuntimeException("Neuspešno inkrementiranje pregleda nakon " + maxAttempts + " pokušaja", e);
+				}
+				// Kratka pauza pre ponovnog pokušaja
+				try {
+					Thread.sleep(10 + (attempt * 5)); // Eksponencijalno povećanje pauze
+				} catch (InterruptedException ie) {
+					Thread.currentThread().interrupt();
+					throw new RuntimeException("Interrupted while retrying view increment", ie);
+				}
+			}
+		}
+		
+		throw new RuntimeException("Neuspešno inkrementiranje pregleda");
+	}
+	
+	/**
+	 * Privatna metoda koja izvršava stvarni inkrement u novoj transakciji.
+	 * Koristi REQUIRES_NEW da bi svaki retry pokušaj imao svoju nezavisnu transakciju.
+	 */
+	//@Transactional(propagation = Propagation.REQUIRES_NEW)
+	private void incrementViewsInTransaction(Long videoId) {
+		videoRepository.incrementViews(videoId);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)

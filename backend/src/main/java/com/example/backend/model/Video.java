@@ -23,6 +23,9 @@ public class Video {
 
     private Long views;
     private String location;
+    
+    @Version
+    private Long version; // Optimistic locking za thread-safe inkrement pregleda
 
 	@ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -88,5 +91,13 @@ public class Video {
 
     public List<Tag> getTags() {
     	return this.videoTags.stream().map(VideoTag::getTag).toList();
+    }
+    
+    public Long getVersion() {
+        return version;
+    }
+    
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

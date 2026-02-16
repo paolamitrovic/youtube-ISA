@@ -68,6 +68,10 @@ export class ConfigService {
     return `${this._videos_url}/stream/${videoId}`;
   }
 
+  getIncrementViewsUrl(videoId: number): string {
+    return `${this._videos_url}/view/${videoId}`;
+  }
+
   // Watch Party endpoints
   private _watch_parties_url = this._base_url + '/watch-parties';
   get watch_parties_url(): string {

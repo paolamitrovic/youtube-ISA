@@ -92,6 +92,7 @@ public class WebSecurityConfig {
                     "/static/**"
             ).permitAll()                                    // Static resources
             .requestMatchers(HttpMethod.GET, "/videos/**").permitAll()
+            .requestMatchers(HttpMethod.POST, "/videos/view/**").permitAll()  // Pregledi ne zahtevaju autentifikaciju
             .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/comments/**").permitAll()
             .requestMatchers("/socket/**").permitAll()      // WebSocket endpoint

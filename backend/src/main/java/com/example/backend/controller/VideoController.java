@@ -195,4 +195,26 @@ public class VideoController {
 				"Error streaming video: " + e.getMessage());
 		}
 	}
+	
+	/**
+	 * Endpoint za inkrement broja pregleda videa.
+	 * Thread-safe implementacija koristeći optimistic locking.
+	 */
+	@PostMapping("/view/{videoId}")
+	public ResponseEntity<VideoDto> incrementViews(@PathVariable Long videoId) {
+		try {
+			// Prvo inkrementuj preglede
+			videoService.incrementViews(videoId);
+			
+			// Zatim učitaj video sa svim relacionim entitetima za DTO
+			// Ovo je potrebno jer VideoDto pristupa lazy-loaded kolekcijama
+			Video video = videoService.findById(videoId);
+			return ResponseEntity.ok(new VideoDto(video));
+		} catch (NoSuchElementException e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Video not found");
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, 
+				"Error incrementing views: " + e.getMessage());
+		}
+	}
 }

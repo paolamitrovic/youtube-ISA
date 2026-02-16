@@ -63,12 +63,31 @@ export class VideoDetailComponent implements OnInit {
         this.loading = false;
         this.cdr.detectChanges();
         this.loadComments(id);
+        // Inkrement broja pregleda kada korisnik uđe na stranicu
+        this.incrementVideoViews(id);
       },
       error: (err) => {
         console.error('❌ VideoDetailComponent: Error loading video', err);
         this.loading = false;
         this.video = undefined;
         this.cdr.detectChanges();
+      }
+    });
+  }
+
+  incrementVideoViews(videoId: number) {
+    this.videoService.incrementViews(videoId).subscribe({
+      next: (updatedVideo) => {
+        // Ažuriraj broj pregleda u prikazanom videu
+        if (this.video) {
+          this.video.views = updatedVideo.views;
+          this.cdr.detectChanges();
+        }
+        console.log('✅ Views incremented:', updatedVideo.views);
+      },
+      error: (err) => {
+        // Ne prikazuj grešku korisniku - pregledi nisu kritični
+        console.warn('⚠️ Failed to increment views:', err);
       }
     });
   }
