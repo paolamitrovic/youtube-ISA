@@ -1,29 +1,38 @@
-.create-watch-party-container {
-  max-width: 600px;
-  margin: 0 auto;
+/* Isti dizajn kao create-post (kreiranje objave) */
+.create-post-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
   padding: 20px;
 }
 
-h1 {
-  color: #333;
-  margin-bottom: 30px;
+.create-post-card {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-card);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
 }
 
-.watch-party-form {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 30px;
+.create-post-card h2 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: var(--color-text-primary);
 }
 
 .form-group {
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  color: #333;
+  margin-bottom: 5px;
+  color: var(--color-text-secondary);
   font-weight: 500;
 }
 
@@ -31,66 +40,80 @@ h1 {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 16px;
   box-sizing: border-box;
+  font-family: inherit;
 }
 
 .form-control:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.2);
 }
 
-.error {
+.form-control.is-invalid {
+  border-color: var(--color-primary);
+}
+
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.25);
+}
+
+select.form-control {
+  cursor: pointer;
+}
+
+.error-message {
   color: #dc3545;
   font-size: 14px;
   margin-top: 5px;
+  border-radius: 10px;
 }
 
-.loading-videos {
-  color: #666;
-  font-size: 14px;
+.form-text {
+  display: block;
   margin-top: 5px;
+  font-size: 12px;
+  color: var(--color-text-muted);
 }
 
-.form-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 30px;
-}
-
-.submit-button {
-  background-color: #007bff;
-  color: white;
+.btn {
+  width: 100%;
+  padding: 12px;
   border: none;
-  padding: 12px 24px;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 10px;
   font-size: 16px;
+  cursor: pointer;
   transition: background-color 0.3s;
+  margin-top: 10px;
 }
 
-.submit-button:hover:not(:disabled) {
-  background-color: #0056b3;
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
 }
 
-.submit-button:disabled {
-  background-color: #ccc;
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-primary:disabled {
+  background-color: var(--color-primary-disabled);
   cursor: not-allowed;
 }
 
-.cancel-button {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
+.cancel-link {
+  margin-top: 20px;
+  text-align: center;
 }
 
-.cancel-button:hover {
-  background-color: #5a6268;
+.cancel-link a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.cancel-link a:hover {
+  text-decoration: underline;
+  color: var(--color-primary-hover);
 }

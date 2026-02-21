@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { WatchParty } from '../../models/watch-party.model';
 import { WatchPartyService } from '../../services/watch-party.service';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-watch-party-list',
@@ -17,8 +18,13 @@ export class WatchPartyListComponent implements OnInit {
   constructor(
     private watchPartyService: WatchPartyService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private config: ConfigService
   ) {}
+
+  getThumbnailUrl(videoId: number): string {
+    return this.config.getThumbnailUrl(videoId);
+  }
 
   ngOnInit(): void {
     this.loadWatchParties();

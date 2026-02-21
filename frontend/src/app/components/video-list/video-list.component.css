@@ -8,7 +8,7 @@
 
 /* Jedna kartica */
 .video-card {
-  background-color: white;
+  background-color: var(--color-bg-card);
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -30,8 +30,8 @@
 }
 
 .video-card .video-info {
-  padding: 5px 20px 15px 20px; /* gore 5px, dole 15px */
-  font-family: 'Nunito', sans-serif;
+  padding: 5px 20px 15px 20px;
+  font-family: var(--font-body);
 }
 
 .video-card .video-info h3 {
@@ -45,18 +45,18 @@
 
 .video-card .video-info p {
   font-size: 0.85rem;
-  color: #555;
+  color: var(--color-text-secondary);
   margin-bottom: 4px;
 }
 
 .username {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
-  color: #333;
+  color: var(--color-text-primary);
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .username:hover {
-  color: #C62828; /* ista crvena kao meni */
+  color: var(--color-primary);
 }

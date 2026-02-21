@@ -1,7 +1,7 @@
 .header {
   display: flex;               /* aktivira horizontalni layout */
   justify-content: space-between;
-  background-color: #f5f5f5;
+  background-color: var(--color-bg-card);
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   align-items: center;
@@ -25,16 +25,15 @@
 }
 
 .menu a {
-  font-family: 'Poppins', sans-serif;  /* lep i moderan font */
-  font-weight: 500;                     /* srednja debljina */
-  font-size: 1.1rem;                    /* veća slova */
-  color: #333333;                       /* tamno siva boja */
-  text-decoration: none;                 /* uklanja podvlačenje */
-  transition: color 0.3s, transform 0.2s; /* glatki efekti pri hoveru */
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: color 0.3s, transform 0.2s;
 }
 
-/* Hover efekat */
 .menu a:hover {
-  color: #C62828;       /* promena boje pri hoveru */
-  transform: translateY(-2px);  /* lagano "podizanje" linka */
+  color: var(--color-primary);
+  transform: translateY(-2px);
 }

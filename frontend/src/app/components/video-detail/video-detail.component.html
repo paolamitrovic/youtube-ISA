@@ -3,25 +3,29 @@
 </div>
 
 <div *ngIf="!loading && video">
-  <div class="video-container">
-    <video [src]="getVideoUrl(video.id)" controls autoplay preload="metadata">
-      Vaš browser ne podržava video tag.
-    </video>
-  </div>
-
-  <div class="video-info">
-    <h2>{{ video.title }}</h2>
-    <div class="video-meta">
-        <span class="username" (click)="goToUser(video.user.username)" title="Pogledajte profil">
-        @{{ video.user.username }}
-        </span>
-
-        <span class="likes" (click)="onLikeClick()" title="Lajkujte video">
-            <img src="assets/like.png" alt="like" style="cursor: pointer;">
-        </span>
+  <div class="video-detail-card">
+    <div class="video-container">
+      <video [src]="getVideoUrl(video.id)" controls autoplay preload="metadata">
+        Vaš browser ne podržava video tag.
+      </video>
     </div>
-    <p>{{ video.views }} pregleda | {{ video.createdAt | date:'d MMM y' }}</p>
-    <p>{{ video.description }}</p>
+    <div class="video-info">
+      <h2>{{ video.title }}</h2>
+      <div class="video-meta">
+          <span class="username" (click)="goToUser(video.user.username)" title="Pogledajte profil">
+          @{{ video.user.username }}
+          </span>
+
+          <span class="likes" (click)="onLikeClick()" title="Lajkujte video">
+              <img src="assets/like.png" alt="like" style="cursor: pointer;">
+          </span>
+      </div>
+      <p>{{ video.views }} {{ video.views === 1 ? 'pregled' : 'pregleda' }} | {{ video.createdAt | date:'d MMM y' }}</p>
+      <p>{{ video.description }}</p>
+      <div *ngIf="video.tags && video.tags.length > 0" class="video-tags">
+        <span *ngFor="let tag of video.tags" class="tag">#{{ tag.name || tag }}</span>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="!commentsLoading && comments.length > 0" class="comments-section">
@@ -66,11 +70,13 @@
 
   <div class="add-comment-box">
     <textarea 
+      name="commentText"
       [(ngModel)]="commentTextValue"
-      placeholder="Dodaj komentar..." 
+      [ngModelOptions]="{standalone: false}"
+      placeholder="Dodajte komentar... (možete proširiti polje povlačenjem)" 
       rows="2">
     </textarea>
-    <button (click)="onSubmitComment()" type="button">Postavite</button>
+    <button (click)="onSubmitComment()" type="button" class="btn-comment" [disabled]="!commentTextValue.trim()">Postavite</button>
   </div>
 </div>
 

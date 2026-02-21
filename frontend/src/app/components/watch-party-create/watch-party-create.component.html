@@ -1,49 +1,46 @@
-<div class="create-watch-party-container">
-  <h1>Kreiraj Watch Party sobu</h1>
+<div class="create-post-container">
+  <div class="create-post-card">
+    <h2>Napravite sobu za zajedničko gledanje videa</h2>
 
-  <form [formGroup]="watchPartyForm" (ngSubmit)="onSubmit()" class="watch-party-form">
-    <div class="form-group">
-      <label for="name">Naziv sobe *</label>
-      <input 
-        type="text" 
-        id="name" 
-        formControlName="name" 
-        class="form-control"
-        placeholder="Unesite naziv sobe">
-      <div *ngIf="watchPartyForm.get('name')?.invalid && watchPartyForm.get('name')?.touched" class="error">
-        Naziv mora imati najmanje 3 karaktera
+    <form [formGroup]="watchPartyForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Naziv sobe *</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="form-control"
+          [class.is-invalid]="watchPartyForm.get('name')?.invalid && watchPartyForm.get('name')?.touched"
+          placeholder="Unesite naziv sobe">
+        <div *ngIf="watchPartyForm.get('name')?.invalid && watchPartyForm.get('name')?.touched" class="error-message">
+          Naziv mora imati najmanje 3 karaktera
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="videoId">Video (opciono)</label>
-      <select 
-        id="videoId" 
-        formControlName="videoId" 
-        class="form-control">
-        <option [value]="null">-- Odaberite video --</option>
-        <option *ngFor="let video of videos" [value]="video.id">
-          {{ video.title }}
-        </option>
-      </select>
-      <div *ngIf="videosLoading" class="loading-videos">
-        Učitavanje videa...
+      <div class="form-group">
+        <label for="videoId">Video (opciono)</label>
+        <select
+          id="videoId"
+          formControlName="videoId"
+          class="form-control">
+          <option [ngValue]="null">-- Odaberite video --</option>
+          <option *ngFor="let video of videos" [ngValue]="video.id">
+            {{ video.title }}
+          </option>
+        </select>
+        <div *ngIf="videosLoading" class="form-text">
+          Učitavanje videa...
+        </div>
       </div>
-    </div>
 
-    <div class="form-actions">
-      <button 
-        type="submit" 
-        class="submit-button"
-        [disabled]="watchPartyForm.invalid || loading">
-        {{ loading ? 'Kreiranje...' : 'Kreiraj sobu' }}
+      <button type="submit" class="btn btn-primary" [disabled]="watchPartyForm.invalid || loading">
+        <span *ngIf="!loading">Napravite sobu</span>
+        <span *ngIf="loading">Pravljenje...</span>
       </button>
-      <button 
-        type="button" 
-        class="cancel-button"
-        (click)="cancel()">
-        Otkaži
-      </button>
-    </div>
-  </form>
+
+      <div class="cancel-link">
+        <a routerLink="/watch-party" style="cursor: pointer;">Otkažite</a>
+      </div>
+    </form>
+  </div>
 </div>

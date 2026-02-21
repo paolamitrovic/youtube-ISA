@@ -7,11 +7,11 @@
 .loading {
   text-align: center;
   padding: 40px;
-  color: #666;
+  color: var(--color-text-muted);
 }
 
 .room-content {
-  background: white;
+  background: var(--color-bg-card);
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 30px;
@@ -28,22 +28,23 @@
 
 .room-header h1 {
   margin: 0;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .join-button {
-  background-color: #28a745;
+  background-color: var(--color-primary);
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
+  font-family: var(--font-body);
   transition: background-color 0.3s;
 }
 
 .join-button:hover {
-  background-color: #218838;
+  background-color: var(--color-primary-hover);
 }
 
 .members-section {
@@ -51,7 +52,7 @@
 }
 
 .members-section h3 {
-  color: #333;
+  color: var(--color-text-primary);
   margin-bottom: 15px;
 }
 
@@ -62,10 +63,10 @@
 }
 
 .member-item {
-  background: #f8f9fa;
+  background: var(--color-bg-muted);
   padding: 8px 16px;
   border-radius: 20px;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .video-selector-section {
@@ -73,14 +74,14 @@
 }
 
 .video-selector-section h3 {
-  color: #333;
+  color: var(--color-text-primary);
   margin-bottom: 20px;
 }
 
 .loading-videos {
   text-align: center;
   padding: 20px;
-  color: #666;
+  color: var(--color-text-muted);
 }
 
 .video-grid {
@@ -90,7 +91,7 @@
 }
 
 .video-card {
-  background: white;
+  background: var(--color-bg-card);
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -115,13 +116,13 @@
 
 .video-card .video-info h4 {
   margin: 0 0 5px 0;
-  color: #333;
+  color: var(--color-text-primary);
   font-size: 14px;
 }
 
 .video-card .video-info p {
   margin: 0;
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 12px;
 }
 
@@ -132,7 +133,7 @@
 }
 
 .current-video-section h3 {
-  color: #333;
+  color: var(--color-text-primary);
   margin-bottom: 15px;
 }
 
@@ -159,10 +160,10 @@
 
 .current-video-card .video-info h4 {
   margin: 0 0 10px 0;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .current-video-card .video-info p {
   margin: 0;
-  color: #666;
+  color: var(--color-text-muted);
 }

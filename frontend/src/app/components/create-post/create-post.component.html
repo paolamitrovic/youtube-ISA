@@ -1,6 +1,6 @@
 <div class="create-post-container">
   <div class="create-post-card">
-    <h2>Kreiraj novu objavu</h2>
+    <h2>Postavite novi video</h2>
 
     <form [formGroup]="createPostForm" (ngSubmit)="onSubmit()">
 
@@ -26,10 +26,10 @@
         <textarea
           id="description"
           formControlName="description"
-          class="form-control"
+          class="form-control description-textarea"
           [class.is-invalid]="isFieldInvalid('description')"
-          placeholder="Unesite opis videa"
-          rows="4"
+          placeholder="Unesite opis videa (možete proširiti polje povlačenjem)"
+          rows="2"
         ></textarea>
         <div *ngIf="isFieldInvalid('description')" class="error-message">
           {{ getErrorMessage('description') }}
@@ -47,7 +47,7 @@
           class="form-control"
           placeholder="Unesite tagove odvojene zarezom (npr. tehnologija, programiranje, tutorial)"
         />
-        <small class="form-text">Tagovi pomažu drugim korisnicima da pronađu vaš video</small>
+        <small class="form-text">Tagovi pomažu drugim korisnicima da pronađu Vaš video</small>
       </div>
 
       <!-- Location -->
@@ -94,8 +94,7 @@
             (change)="onVideoSelected($event)"
             class="file-input"
           />
-          <label for="video" class="file-label upload-button">
-            <span class="upload-icon">🎬</span>
+          <label for="video" class="file-label">
             <span *ngIf="!selectedVideo">Izaberite video fajl</span>
             <span *ngIf="selectedVideo">{{ selectedVideo.name }}</span>
           </label>
@@ -106,17 +105,20 @@
         <div *ngIf="selectedVideo && !videoSizeError" class="video-info">
           <small>Veličina: {{ (selectedVideo.size / (1024 * 1024)).toFixed(2) }} MB</small>
         </div>
+        <div *ngIf="videoPreviewUrl" class="video-preview">
+          <video [src]="videoPreviewUrl" controls preload="metadata"></video>
+        </div>
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary" [disabled]="loading">
-        <span *ngIf="!loading">Kreiraj objavu</span>
-        <span *ngIf="loading">Kreiranje u toku...</span>
+      <button type="submit" class="btn btn-primary" [disabled]="createPostForm.invalid || !selectedThumbnail || !selectedVideo || loading">
+        <span *ngIf="!loading">Postavite video</span>
+        <span *ngIf="loading">Postavljanje u toku...</span>
       </button>
 
       <!-- Cancel Link -->
       <div class="cancel-link">
-        <a routerLink="/" style="cursor: pointer;">Otkaži</a>
+        <a routerLink="/" style="cursor: pointer;">Otkažite</a>
       </div>
     </form>
   </div>

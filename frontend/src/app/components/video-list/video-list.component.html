@@ -15,7 +15,7 @@
           @{{ video.user.username }}
         </span>
       </p>
-      <p class="views">{{ video.views }} pregleda | {{ video.createdAt | date:'d MMM y' }}</p>
+      <p class="views">{{ video.views }} {{ video.views === 1 ? 'pregled' : 'pregleda' }} | {{ video.createdAt | date:'d MMM y' }}</p>
     </div>
   </div>
 </div>

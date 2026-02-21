@@ -6,7 +6,7 @@
 
       <!-- Username -->
       <div class="form-group">
-        <label for="username">Korisničko ime</label>
+        <label for="username">Korisničko ime *</label>
         <input
           type="text"
           id="username"
@@ -22,7 +22,7 @@
 
       <!-- First Name -->
       <div class="form-group">
-        <label for="firstName">Ime</label>
+        <label for="firstName">Ime *</label>
         <input
           type="text"
           id="firstName"
@@ -38,7 +38,7 @@
 
       <!-- Last Name -->
       <div class="form-group">
-        <label for="lastName">Prezime</label>
+        <label for="lastName">Prezime *</label>
         <input
           type="text"
           id="lastName"
@@ -54,7 +54,7 @@
 
       <!-- Email -->
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">Email *</label>
         <input
           type="email"
           id="email"
@@ -70,7 +70,7 @@
 
       <!-- Address -->
       <div class="form-group">
-        <label for="address">Adresa</label>
+        <label for="address">Adresa *</label>
         <input
           type="text"
           id="address"
@@ -86,7 +86,7 @@
 
       <!-- Password -->
       <div class="form-group">
-        <label for="password">Lozinka</label>
+        <label for="password">Lozinka *</label>
         <input
           type="password"
           id="password"
@@ -102,7 +102,7 @@
 
       <!-- Confirm Password -->
       <div class="form-group">
-        <label for="confirmPassword">Potvrda lozinke</label>
+        <label for="confirmPassword">Potvrda lozinke *</label>
         <input
           type="password"
           id="confirmPassword"
@@ -117,8 +117,8 @@
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary" [disabled]="loading">
-        <span *ngIf="!loading">Registruj se</span>
+      <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid || loading">
+        <span *ngIf="!loading">Registrujte se</span>
         <span *ngIf="loading">Registracija u toku...</span>
       </button>
 

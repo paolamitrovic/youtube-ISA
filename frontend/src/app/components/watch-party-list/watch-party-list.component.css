@@ -1,101 +1,156 @@
+/* Rasprostranjeno po celom prozoru – isti razmak od navbara i od kartica */
 .watch-party-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
+  padding: 2.5rem 2rem 2rem 2rem;
+  box-sizing: border-box;
 }
 
 .header-section {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 }
 
 .header-section h1 {
   margin: 0;
-  color: #333;
+  font-size: 1.75rem;
+  color: var(--color-text-primary);
 }
 
 .create-button {
-  background-color: #007bff;
+  background-color: var(--color-primary);
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
+  font-family: var(--font-body);
   transition: background-color 0.3s;
 }
 
 .create-button:hover {
-  background-color: #0056b3;
+  background-color: var(--color-primary-hover);
 }
 
 .loading {
   text-align: center;
   padding: 40px;
-  color: #666;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
 }
 
+/* Grid – rasprostranjen po celoj širini */
 .watch-party-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* Kartica – isti stil kao video-card */
 .watch-party-card {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
+  background-color: var(--color-bg-card);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
-  transition: box-shadow 0.3s, transform 0.2s;
 }
 
 .watch-party-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Thumbnail / placeholder – iste dimenzije kao video-list */
+.watch-party-thumbnail {
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-bg-muted);
+}
+
+.watch-party-thumbnail img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 200px;
+}
+
+.no-video-placeholder {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+}
+
+/* Info deo – isto kao video-card .video-info */
+.watch-party-info {
+  padding: 5px 20px 15px 20px;
+  font-family: var(--font-body);
 }
 
 .watch-party-info h3 {
-  margin: 0 0 10px 0;
-  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.video-info {
-  color: #666;
-  margin: 5px 0;
+.video-title {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.no-video {
-  color: #999;
+.no-video-text {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
   font-style: italic;
-  margin: 5px 0;
+  margin: 0 0 4px 0;
 }
 
 .members-count {
-  color: #888;
-  font-size: 14px;
-  margin: 10px 0;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 12px 0;
 }
 
+/* Dugme Pridružite se – crvena boja */
 .join-button {
-  background-color: #28a745;
+  width: calc(100% - 40px);
+  margin: 0 20px 15px 20px;
+  padding: 12px;
+  background-color: var(--color-primary);
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
   cursor: pointer;
-  margin-top: 10px;
   transition: background-color 0.3s;
 }
 
 .join-button:hover {
-  background-color: #218838;
+  background-color: var(--color-primary-hover);
 }
 
 .no-watch-parties {
   text-align: center;
   padding: 40px;
-  color: #666;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
 }

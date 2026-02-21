@@ -1,7 +1,6 @@
 <div class="watch-party-container">
   <div class="header-section">
-    <h1>Watch Party Sobe</h1>
-    <button class="create-button" (click)="createWatchParty()">Kreiraj novu sobu</button>
+    <button class="create-button" (click)="createWatchParty()">Kreirajte novu sobu</button>
   </div>
 
   <div *ngIf="loading" class="loading">
@@ -9,24 +8,24 @@
   </div>
 
   <div *ngIf="!loading && watchParties && watchParties.length > 0" class="watch-party-grid">
-    <div 
+    <div
       *ngFor="let watchParty of watchParties; trackBy: trackByWatchPartyId"
       class="watch-party-card"
       (click)="joinWatchParty(watchParty.id)">
+      <div class="watch-party-thumbnail">
+        <img *ngIf="watchParty.video" [src]="getThumbnailUrl(watchParty.video.id)" [alt]="watchParty.video.title">
+        <div *ngIf="!watchParty.video" class="no-video-placeholder">
+          <span>Nema videa</span>
+        </div>
+      </div>
       <div class="watch-party-info">
         <h3>{{ watchParty.name }}</h3>
-        <p *ngIf="watchParty.video" class="video-info">
-          Video: {{ watchParty.video.title }}
-        </p>
-        <p *ngIf="!watchParty.video" class="no-video">
-          Nema odabranog videa
-        </p>
-        <p class="members-count">
-          {{ (watchParty.members || []).length }} članova
-        </p>
+        <p *ngIf="watchParty.video" class="video-title">{{ watchParty.video.title }}</p>
+        <p *ngIf="!watchParty.video" class="no-video-text">Nema odabranog videa</p>
+        <p class="members-count">{{ (watchParty.members || []).length }} {{ (watchParty.members || []).length === 1 ? 'član' : ((watchParty.members || []).length >= 5 ? 'članova' : 'člana') }}</p>
       </div>
       <button class="join-button" (click)="joinWatchParty(watchParty.id); $event.stopPropagation()">
-        Pridruži se
+        Pridružite se
       </button>
     </div>
   </div>

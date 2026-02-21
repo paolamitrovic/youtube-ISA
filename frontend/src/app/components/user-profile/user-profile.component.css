@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 3rem 1rem;
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   text-align: center;
 }
 
@@ -13,7 +13,7 @@
   height: 200px;
   border-radius: 50%; /* krug */
   object-fit: cover;
-  border: 2px solid #C62828; /* crvena obrub boja brenda */
+  border: 2px solid var(--color-primary);
   margin-bottom: 1.5rem;
 }
 
@@ -21,11 +21,11 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .user-profile p {
   font-size: 1rem;
-  color: #555;
+  color: var(--color-text-secondary);
   margin: 0.3rem 0;
 }

@@ -1,11 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+/* ========== PALETA BOJA – CSS varijable ========== */
+:root {
+  /* Primarna akcent boja (crvena) */
+  --color-primary: #C62828;
+  --color-primary-hover: #9e1f1f;
+  --color-primary-disabled: #d18b8b;
+
+  /* Pozadina */
+  --color-bg-body-start: #e8d0d0;
+  --color-bg-body-end: #f0dddd;
+  --color-bg-card: #ffffff;
+  --color-bg-muted: #f5f5f5;
+
+  /* Tekst */
+  --color-text-primary: #333333;
+  --color-text-secondary: #555555;
+  --color-text-muted: #666666;
+
+  /* Tipografija: --font-body (Nunito) za body/forme/sadržaj, 
+                  --font-heading (Poppins) za navigaciju/naslove */
+  --font-body: 'Nunito', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+}
+
 body {
-  font-family: 'Nunito', sans-serif;
-  background: linear-gradient(
-    135deg,
-    #fbe9e9,
-    #fff2f2
-  );
+  font-family: var(--font-body);
+  /* Uniformna pozadina – bez gradijenta da ne bi nastajala tamna senka ispod sadržaja */
+  background: var(--color-bg-body-end);
   margin: 0;
 }
 

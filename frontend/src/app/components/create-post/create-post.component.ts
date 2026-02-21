@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { VideoService } from '../../services/video.service';
@@ -10,18 +10,20 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './create-post.component.css',
   standalone: false
 })
-export class CreatePostComponent {
+export class CreatePostComponent implements OnDestroy {
   createPostForm: FormGroup;
   loading = false;
   selectedThumbnail: File | null = null;
   selectedVideo: File | null = null;
   thumbnailPreview: string | null = null;
+  videoPreviewUrl: string | null = null;
   videoSizeError: string | null = null;
   tagsInput: string = '';
 
   constructor(
     private fb: FormBuilder,
     private videoService: VideoService,
+    private cdr: ChangeDetectorRef,
     private router: Router,
     private authService: AuthService
   ) {
@@ -42,6 +44,7 @@ export class CreatePostComponent {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.thumbnailPreview = e.target.result;
+        this.cdr.detectChanges(); // ažurira prikaz odmah (FileReader je van Angular zone)
       };
       reader.readAsDataURL(file);
     }
@@ -49,6 +52,11 @@ export class CreatePostComponent {
 
   onVideoSelected(event: any) {
     const file = event.target.files[0];
+    // Oslobodi prethodni video URL
+    if (this.videoPreviewUrl) {
+      URL.revokeObjectURL(this.videoPreviewUrl);
+      this.videoPreviewUrl = null;
+    }
     if (file) {
       // Check file type
       if (!file.name.toLowerCase().endsWith('.mp4')) {
@@ -67,6 +75,8 @@ export class CreatePostComponent {
 
       this.selectedVideo = file;
       this.videoSizeError = null;
+      this.videoPreviewUrl = URL.createObjectURL(file);
+      this.cdr.detectChanges();
     }
   }
 
@@ -119,7 +129,7 @@ export class CreatePostComponent {
     this.videoService.createVideo(formData).subscribe({
       next: (response: any) => {
         this.loading = false;
-        alert('Objava je uspešno kreirana!');
+        alert('Video je uspešno postavljen!');
         this.router.navigate(['/']);
       },
       error: (err) => {
@@ -133,6 +143,12 @@ export class CreatePostComponent {
   isFieldInvalid(fieldName: string): boolean {
     const field = this.createPostForm.get(fieldName);
     return !!(field && field.invalid && field.touched);
+  }
+
+  ngOnDestroy(): void {
+    if (this.videoPreviewUrl) {
+      URL.revokeObjectURL(this.videoPreviewUrl);
+    }
   }
 
   getErrorMessage(fieldName: string): string {

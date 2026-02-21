@@ -9,12 +9,12 @@
       <button *ngIf="!watchParty.members || watchParty.members.length === 0" 
               class="join-button" 
               (click)="joinWatchParty()">
-        Pridruži se sobi
+        Pridružite se sobi
       </button>
     </div>
 
     <div class="members-section">
-      <h3>Članovi ({{ (watchParty.members || []).length }})</h3>
+      <h3>Članovi ({{ (watchParty.members || []).length }} {{ (watchParty.members || []).length === 1 ? 'član' : ((watchParty.members || []).length >= 5 ? 'članova' : 'člana') }})</h3>
       <div class="members-list">
         <div *ngFor="let member of watchParty.members" class="member-item">
           <span>@{{ member.username }}</span>
